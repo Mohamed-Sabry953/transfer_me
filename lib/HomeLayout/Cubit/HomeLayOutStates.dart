@@ -1,0 +1,15 @@
+abstract class HomeLayoutStates{}
+class HomeLayoutinit extends HomeLayoutStates{}
+class ChangeIndexStates extends HomeLayoutStates{}
+class ProfileGetDataFromFirebaseSuccsesState extends HomeLayoutStates{}
+class SetProfileGetDataFromFirebaseLoadingState extends HomeLayoutStates{}
+class CardsGetDataFromFirebaseLoadingState extends HomeLayoutStates{}
+class CardsGetDataFromFirebaseSucssesState extends HomeLayoutStates{}
+class CardsGetDataFromFirebaseErrorState extends HomeLayoutStates{}
+class CardNoValidationSucssesState extends HomeLayoutStates{}
+class CardNoValidationErrorState extends HomeLayoutStates{}
+class SetColorSucssesState extends HomeLayoutStates{}
+class SetColorLoadingState extends HomeLayoutStates{}
+class SetColorErrorState extends HomeLayoutStates{}
+class AddBalanceLoadingState extends HomeLayoutStates{}
+class SelectCardIndexSuccsesState extends HomeLayoutStates{}

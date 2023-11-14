@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "819755815286",
+    "project_id": "transferme-a6187",
+    "storage_bucket": "transferme-a6187.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819755815286:android:192c6d4e10de6a3f4c2a57",
+        "android_client_info": {
+          "package_name": "com.example.transfer_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819755815286-epvjqbmpqm689kgkpdfbn0djofc0sr7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.transfer_me",
+            "certificate_hash": "b7d0b615a0d65a45d78dc6644205aff98368f793"
+          }
+        },
+        {
+          "client_id": "819755815286-5vghdk7alqpmghplddobbrvue8nnce4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4f5ANd1YVqrHZuFGEz4yl7-CsPQMidnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819755815286-5vghdk7alqpmghplddobbrvue8nnce4m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "819755815286-3tdp2ka6osmrdo6i6bel09ppp8n0sf77.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.transferMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

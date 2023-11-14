@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "819755815286",
+    "project_id": "transferme-a6187",
+    "storage_bucket": "transferme-a6187.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819755815286:android:192c6d4e10de6a3f4c2a57",
+        "android_client_info": {
+          "package_name": "com.example.transfer_me"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4f5ANd1YVqrHZuFGEz4yl7-CsPQMidnE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
