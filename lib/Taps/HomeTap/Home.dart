@@ -133,9 +133,12 @@ class HomeTap extends StatelessWidget {
                                         height: 5.h,
                                       ),
                                       Text(
+                                          "${
                                           HomeLayoutCubit.get(context)
                                               .cards[index]
-                                              .HolderName,
+                                              .HolderName
+                                              .substring(0, 2)
+                                        }...",
                                           style: Constant.stringStyle(
                                               12.sp,
                                               FontWeight.w500,
@@ -176,7 +179,7 @@ class HomeTap extends StatelessWidget {
                                             width: 10.w,
                                           ),
                                           Text(
-                                              "${HomeLayoutCubit.get(context).cards[index].CVV.toString().substring(0, 2)}**",
+                                              "${HomeLayoutCubit.get(context).cards[index].CVV.toString().substring(0,1)}***",
                                               style: Constant.stringStyle(
                                                   15.sp,
                                                   FontWeight.w600,

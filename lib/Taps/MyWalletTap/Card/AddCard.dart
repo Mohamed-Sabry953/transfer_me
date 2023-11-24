@@ -241,6 +241,7 @@ class AddCardScreen extends StatelessWidget {
                                     HolderName: Name.text,
                                     ExpireDate: ExpireDate.text,
                                     CVV: 0,
+                                    color: 0,
                                     id: ""));
                           },
                           style: ElevatedButton.styleFrom(

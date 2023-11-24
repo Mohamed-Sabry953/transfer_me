@@ -39,17 +39,26 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   UserModel userModel = UserModel(accountNo: 0, Email: "");
   List<PaymentMethodModel> cards = [];
 
-  void changeIndex(int index, BuildContext context, String email,String image,String firstName,String lastName) {
+  void changeIndex(int index, BuildContext context, String email, String image,
+      String firstName, String lastName) {
     Currentindex = index;
     if (Currentindex == 3) {
       Navigator.pushNamed(context, ProfileTap.routeName,
-          arguments:
-          UserModel(accountNo: 0, Email: email, profileImage: image,firstname: firstName,lastname: lastName));
+          arguments: UserModel(
+              accountNo: 0,
+              Email: email,
+              profileImage: image,
+              firstname: firstName,
+              lastname: lastName));
       Currentindex = 0;
     } else if (Currentindex == 1) {
       Navigator.pushNamed(context, MyWalletTap.routeName,
-          arguments:
-              UserModel(accountNo: 0, Email: email, profileImage: image,firstname: firstName,lastname: lastName));
+          arguments: UserModel(
+              accountNo: 0,
+              Email: email,
+              profileImage: image,
+              firstname: firstName,
+              lastname: lastName));
       Currentindex = 0;
     }
 
@@ -60,8 +69,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     emit(SetProfileGetDataFromFirebaseLoadingState());
     FirebaseFirestore.instance
         .collection('Users')
-        .doc(FirebaseAuth.instance.currentUser!.uid
-    )
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -99,6 +107,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         HolderName: HolderName,
         ExpireDate: ExpireDate,
         CVV: CVV,
+        color: 0,
         id: FirebaseAuth.instance.currentUser!.uid,
         cardBalance: Random().nextInt(10000));
     var Collection = getPaymentMethodCollection();
@@ -112,13 +121,20 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     emit(ChangeIndexStates());
   }
 
-  setCardColor(String cardNo, int index, BuildContext context) {
+  setCardColor(String cardNo, int index, BuildContext context, String email,
+      String image,String firstName,String lastName) {
     return getPaymentMethodCollection()
         .doc("${FirebaseAuth.instance.currentUser!.uid}$cardNo")
         .update({"color": index}).then((value) {
       emit(SetColorSucssesState());
       Navigator.pushNamedAndRemoveUntil(
-          context, MyWalletTap.routeName, (route) => false);
+          context, MyWalletTap.routeName, (route) => false,
+          arguments: UserModel(
+              accountNo: 0,
+              Email: email,
+              profileImage: image,
+              firstname: firstName,
+              lastname: lastName));
     }).catchError((e) {
       emit(SetColorErrorState());
       print(e.toString());
@@ -126,6 +142,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   }
 
   getCardDataFromFirebase() {
+    List<PaymentMethodModel>CardImedate=[];
     emit(CardsGetDataFromFirebaseLoadingState());
     emit(AddBalanceLoadingState());
     getPaymentMethodCollection().get().then((QuerySnapshot querySnapshot) {
@@ -141,9 +158,10 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
               color: doc.get("color"));
           emit(CardsGetDataFromFirebaseSucssesState());
           if (paymentMethodModel.id == FirebaseAuth.instance.currentUser!.uid) {
-            cards.add(paymentMethodModel);
+            CardImedate.add(paymentMethodModel);
             Balance += paymentMethodModel.cardBalance!;
           }
+          cards=CardImedate;
         });
       }
     });

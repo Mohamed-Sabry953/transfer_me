@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
+import 'package:transfer_me/PinScreen/SetPinScreen.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/AddCardColor.dart';
 import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileCubit.dart';
@@ -12,11 +13,10 @@ import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoVerifyScreen.dart';
 import 'package:transfer_me/signUp/SuccsesSignupScreen.dart';
 import 'package:transfer_me/signUp/signup.dart';
-    import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'Taps/MyWalletTap/Card/AddCard.dart';
 import 'Taps/ProfileTap/SetProfile/SetProfileScreen.dart';
 import 'firebase_options.dart';
-
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -33,9 +33,7 @@ void main() async{
 
             },
           )));
-
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -53,18 +51,19 @@ class MyApp extends StatelessWidget {
             routes: {
               HomeLayout.routeName:(context)=>HomeLayout(),
               signup.routeName:(context)=>signup(),
-              SuccsesSignupScreen.routeName:(context)=>SuccsesSignupScreen(),
+              SuccsesSignupScreen.routeName:(context)=>const SuccsesSignupScreen(),
               SetProfileScreen.routeName:(context)=>SetProfileScreen(),
-              ProfileTap.routeName:(context)=>ProfileTap(),
+              ProfileTap.routeName:(context)=>const ProfileTap(),
               phoneNoScreen.routeName:(context)=>phoneNoScreen(),
               phoneNoVerifyScreen.routeName:(context)=>phoneNoVerifyScreen(),
               loginScreen.routeName:(context)=>loginScreen(),
-              MyWalletTap.routeName:(context)=>MyWalletTap(),
+              MyWalletTap.routeName:(context)=>const MyWalletTap(),
               AddCardScreen.routeName:(context)=>AddCardScreen(),
               AddCardColor.routeName:(context)=>AddCardColor(),
+              SetPin.routeName:(context)=>const SetPin(),
             },
             initialRoute:
-              signup.routeName
+              SetPin.routeName
             // ProfileCubit.get(context).firebaseuser == null
             //   ? loginScreen.routeName
             //   : HomeLayout.routeName,

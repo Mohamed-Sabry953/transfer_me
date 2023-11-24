@@ -20,7 +20,7 @@ class AddCardColor extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: BlocProvider(
-            create: (context) => HomeLayoutCubit(),
+            create: (context) => HomeLayoutCubit()..getProfileDataFromFirebase(),
             child: BlocConsumer<HomeLayoutCubit, HomeLayoutStates>(
               builder: (context, state) {
                 return Container(
@@ -239,7 +239,12 @@ class AddCardColor extends StatelessWidget {
                           HomeLayoutCubit.get(context).setCardColor(
                               args.CardNumber,
                               HomeLayoutCubit.get(context).colorIndex,
-                              context);
+                              context,
+                          HomeLayoutCubit.get(context).userModel.Email??"",
+                              HomeLayoutCubit.get(context).userModel.profileImage??"",
+                              HomeLayoutCubit.get(context).userModel.firstname??"",
+                              HomeLayoutCubit.get(context).userModel.lastname??""
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                             fixedSize: Size(153.w, 59.h),

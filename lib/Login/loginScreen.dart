@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/Cubit/LoginCubit.dart';
 import 'package:transfer_me/Login/Cubit/LoginStates.dart';
 import 'package:transfer_me/signUp/signup.dart';
@@ -74,11 +73,11 @@ class loginScreen extends StatelessWidget {
                             controller: Pass,
                             decoration: InputDecoration(
                                 suffixIcon:Pass.text.isEmpty?
-                                Icon(Icons.visibility_off)
+                                const Icon(Icons.visibility_off)
                                     :
                                 IconButton(onPressed: (){
-                                }, icon:Icon(Icons.visibility_off),),
-                                border: UnderlineInputBorder(
+                                }, icon:const Icon(Icons.visibility_off),),
+                                border: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.black)
                                 )
                             )
@@ -124,7 +123,7 @@ class loginScreen extends StatelessWidget {
                                   side: BorderSide(
                                     width: 1.w,
                                     strokeAlign: BorderSide.strokeAlignCenter,
-                                    color: Color(0xFFB1B1B1),
+                                    color: const Color(0xFFB1B1B1),
                                   ),
                                 ),
                               ),
@@ -132,7 +131,7 @@ class loginScreen extends StatelessWidget {
                             Text(
                                 'or',
                                 style: TextStyle(
-                                  color: Color(0xFFB1B1B1),
+                                  color: const Color(0xFFB1B1B1),
                                   fontSize: 16.sp,
                                   fontFamily: 'San Francisco Display',
                                   fontWeight: FontWeight.w500,)),
@@ -144,7 +143,7 @@ class loginScreen extends StatelessWidget {
                                   side: BorderSide(
                                     width: 1.w,
                                     strokeAlign: BorderSide.strokeAlignCenter,
-                                    color: Color(0xFFB1B1B1),
+                                    color: const Color(0xFFB1B1B1),
                                   ),
                                 ),
                               ),

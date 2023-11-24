@@ -14,7 +14,7 @@ class PaymentMethodModel {
       required this.ExpireDate,
       required this.CVV,
       required this.id,
-      this.color,
+      required this.color,
        this.cardBalance});
 
   PaymentMethodModel.fromjson(Map<String, dynamic> json)
