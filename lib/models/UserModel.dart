@@ -6,6 +6,8 @@ class UserModel {
   String? lastname;
   int? phoneNo;
   String? profileImage;
+  String? pin;
+  bool secondLog;
 
   UserModel(
       {required this.accountNo,
@@ -14,7 +16,9 @@ class UserModel {
       this.firstname,
       this.lastname,
       this.profileImage,
-      this.phoneNo});
+      this.phoneNo,
+      this.pin,
+        this.secondLog=false});
 
   UserModel.fromjson(Map<String, dynamic> json)
       : this(
@@ -23,7 +27,9 @@ class UserModel {
       firstname: json["firstname"],
       lastname: json["lastname"],
       profileImage: json["profileImage"],
-      phoneNo: json["phoneNo"]
+      phoneNo: json["phoneNo"],
+      pin: json["pin"],
+      secondLog: json["secondLog"]
 
   );
 
@@ -36,6 +42,8 @@ class UserModel {
       "lastname": lastname,
       "profileImage": profileImage,
       "phoneNo": phoneNo,
+      "pin": pin,
+      "secondLog": secondLog,
     };
   }
 }

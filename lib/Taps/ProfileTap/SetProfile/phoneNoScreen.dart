@@ -9,6 +9,8 @@ class phoneNoScreen extends StatelessWidget {
   static const String routeName="phoneNoScreen";
   final TextEditingController PhoneNo = TextEditingController();
   var formkey = GlobalKey<FormState>();
+
+  phoneNoScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -66,7 +68,7 @@ class phoneNoScreen extends StatelessWidget {
                                   Text(
                                     '* Phone Number',
                                     style: TextStyle(
-                                      color: Color(0xFF878787),
+                                      color: const Color(0xFF878787),
                                       fontSize: 12.sp,
                                       fontFamily: 'San Francisco Display',
                                       fontWeight: FontWeight.w400,
@@ -84,20 +86,20 @@ class phoneNoScreen extends StatelessWidget {
                                   },
                                   decoration: InputDecoration(
                                       suffixIcon: PhoneNo.text.isNotEmpty
-                                          ?  ProfileCubit.get(context).firstName.length==12
+                                          ?  PhoneNo.text.length==10
                                           ?
                                       Container(
                                           margin: REdgeInsets.only(
                                               top: 10, bottom: 10, right: 10, left: 10
                                           ),
                                           decoration: ShapeDecoration(
-                                            color: Color(0xFF5063BF),
+                                            color: const Color(0xFF5063BF),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(
                                                   20.r),
                                             ),
                                           ),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.done, color: Colors.white,
                                             size: 15,))
                                           : Container(
@@ -130,7 +132,9 @@ class phoneNoScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 62.h,),
                           ElevatedButton(onPressed: () {
-                            ProfileCubit.get(context).UpdateUserPhoneNoFirebaseData(int.parse(PhoneNo.text), context);
+                            if(PhoneNo.text.length==10){
+                              ProfileCubit.get(context).UpdateUserPhoneNoFirebaseData(int.parse(PhoneNo.text), context);
+                            }
                           },
                               style: ElevatedButton.styleFrom(
                                 fixedSize: Size(190.w, 60.h),
@@ -158,7 +162,7 @@ class phoneNoScreen extends StatelessWidget {
               }
               , listener: (context, state) {
               if (state is SetProfileNameSuccsesValidationState) {}
-              if (state is ProfileLoadingState) {
+              if (state is ProfileLoadingState && PhoneNo.text.length==10) {
                 showDialog(context: context, builder: (context) {
                   return Center(child: CircularProgressIndicator());
                 },);

@@ -6,10 +6,10 @@ import 'package:transfer_me/PinScreen/Cubit/PinStates.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import '../Shared/Constant/Constant.dart';
 
-class SetPin extends StatelessWidget {
-  static const String routeName = "SetPin";
+class SetPin_Login extends StatelessWidget {
+  static const String routeName = "SetPinLogin";
 
-  const SetPin({super.key});
+  const SetPin_Login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,8 @@ class SetPin extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(context, phoneNoScreen.routeName, (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  phoneNoScreen.routeName, (route) => false);
                             },
                             child: Container(
                               width: 63.w,
@@ -182,7 +183,9 @@ class SetPin extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 23.w,),
+                        SizedBox(
+                          width: 23.w,
+                        ),
                         Container(
                           width: 55.w,
                           height: 55.h,
@@ -212,25 +215,29 @@ class SetPin extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 35.h,),
-                    ElevatedButton(onPressed: (){
-                      PinCubit.get(context).signInWithGoogle(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(117.w, 50.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      backgroundColor: const Color(0xFF5164BF),
-                    ), child: Text(
-                      'Set',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.sp,
-                        fontFamily: 'San Francisco Display',
-                        fontWeight: FontWeight.w600,
-                      ),
+                    SizedBox(
+                      height: 35.h,
                     ),
+                    ElevatedButton(
+                      onPressed: () {
+                        PinCubit.get(context).updateUserPinFirebaseData(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(117.w, 50.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.r),
+                        ),
+                        backgroundColor: const Color(0xFF5164BF),
+                      ),
+                      child: Text(
+                        'Set',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22.sp,
+                          fontFamily: 'San Francisco Display',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     )
                   ],
                 );

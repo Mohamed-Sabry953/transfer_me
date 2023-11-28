@@ -14,6 +14,7 @@ class SetProfileLastNameErrorValidationState extends ProfileStates{}
 class SetProfileGetDataFromFirebaseSuccsesState extends ProfileStates{}
 class SetProfileGetDataFromFirebaseLoadingState extends ProfileStates{}
 class SetProfileNoVerifySuccsesState extends ProfileStates{}
+class SetProfilePinSuccsesState extends ProfileStates{}
 class SetProfileNoVerifyErrorState extends ProfileStates{}
 class AutoLoginSucssesState extends ProfileStates{}
 class PrintFingerSucssesState extends ProfileStates{}

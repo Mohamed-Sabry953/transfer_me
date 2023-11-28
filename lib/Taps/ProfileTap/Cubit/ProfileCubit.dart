@@ -7,11 +7,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
+import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoVerifyScreen.dart';
 import 'package:transfer_me/models/UserModel.dart';
-import 'package:transfer_me/signUp/SuccsesSignupScreen.dart';
 
 class ProfileCubit extends Cubit<ProfileStates> {
   ProfileCubit() : super(ProfileinitState());
@@ -127,7 +127,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
                 verificationId: verificationId, smsCode: smsCode);
             await auth.signInWithCredential(credential);
             emit(SetProfileNoVerifySuccsesState());
-            Navigator.pushNamedAndRemoveUntil(context, SuccsesSignupScreen.routeName, (route) => false);
+            Navigator.pushNamedAndRemoveUntil(context, SetPin_Login.routeName, (route) => false);
           },
           timeout: const Duration(seconds: 60),
           codeAutoRetrievalTimeout: (String verificationId) {},

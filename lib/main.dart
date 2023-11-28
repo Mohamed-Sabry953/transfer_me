@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/PinScreen/SetPinScreen.dart';
+import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
+import 'package:transfer_me/PinScreen/pinLock.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/AddCardColor.dart';
 import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileCubit.dart';
@@ -61,12 +63,13 @@ class MyApp extends StatelessWidget {
               AddCardScreen.routeName:(context)=>AddCardScreen(),
               AddCardColor.routeName:(context)=>AddCardColor(),
               SetPin.routeName:(context)=>const SetPin(),
+              SetPin_Login.routeName:(context)=>const SetPin_Login(),
+              PinLock.routeName:(context)=>const PinLock(),
             },
             initialRoute:
-              SetPin.routeName
-            // ProfileCubit.get(context).firebaseuser == null
-            //   ? loginScreen.routeName
-            //   : HomeLayout.routeName,
+            ProfileCubit.get(context).firebaseuser == null
+              ? loginScreen.routeName
+              : PinLock.routeName,
         );
       },);
   }

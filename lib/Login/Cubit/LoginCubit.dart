@@ -14,15 +14,30 @@ class LoginCubit extends Cubit<LoginStates>{
 
   LoginCubit():super(initLoginState());
   static LoginCubit get(context)=>BlocProvider.of(context);
-
-  login(String emailAddress,String password,BuildContext context) async {
+  CollectionReference users = FirebaseFirestore.instance.collection('Users');
+  bool? secondLog;
+  login(String pinContent,String emailAddress,String password,BuildContext context) async {
     emit(LoadingLoginState());
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailAddress,
           password: password
       ).then((credential){
         emit(SuccsesLoginState());
+        if(pinContent.length!=5){
+          Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+          print(pinContent);
+          return users.doc(FirebaseAuth.instance.currentUser!.uid).update(
+              {
+                "secondLog":true,
+              });
+        }
+        else{
         Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+        print(pinContent);
+          return users.doc(FirebaseAuth.instance.currentUser!.uid).update(
+              {"pin": pinContent,
+              });
+        }
       }).catchError((e){
         emit(ErrorLoginState());
         if (e.code == 'user-not-found') {

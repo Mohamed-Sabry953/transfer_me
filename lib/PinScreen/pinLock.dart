@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/PinScreen/Cubit/PinCuibt.dart';
 import 'package:transfer_me/PinScreen/Cubit/PinStates.dart';
-import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import '../Shared/Constant/Constant.dart';
 
-class SetPin extends StatelessWidget {
-  static const String routeName = "SetPin";
+class PinLock extends StatelessWidget {
+  static const String routeName = "PinLock";
 
-  const SetPin({super.key});
+  const PinLock({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,36 +16,28 @@ class SetPin extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocProvider(
-            create: (context) => PinCubit(),
+            create: (context) => PinCubit()..getPinFromFirebase(),
+            lazy: false,
             child: BlocConsumer<PinCubit, PinStates>(
               builder: (context, state) {
                 return Column(
                   children: [
+                    SizedBox(height: 20.h,),
                     Padding(
                       padding: REdgeInsets.all(12.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(context, phoneNoScreen.routeName, (route) => false);
-                            },
-                            child: Container(
-                              width: 63.w,
-                              height: 42.h,
-                              decoration: ShapeDecoration(
-                                color: const Color(0xFF5164BF),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20.r),
-                                ),
-                              ),
-                              child: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
+                          Container(
+                            width: 63.w,
+                            height: 42.h,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.r),
                               ),
                             ),
                           ),
-                          Text('Set Pin Code',
+                          Text('Unlock Pin',
                               style: Constant.stringStyle(
                                   20.sp, FontWeight.w500, Colors.black, 0.0)),
                           const SizedBox(),
@@ -90,7 +81,7 @@ class SetPin extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 28.h,
+                      height: 35.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -106,14 +97,14 @@ class SetPin extends StatelessWidget {
                                   height: 20.h,
                                   decoration: BoxDecoration(
                                     color:
-                                        PinCubit.get(context).pinNum.length ==
-                                                    index + 1 ||
-                                                PinCubit.get(context)
-                                                        .pinNum
-                                                        .length >
-                                                    index
-                                            ? const Color(0xFF5164BF)
-                                            : null,
+                                    PinCubit.get(context).pinNum.length ==
+                                        index + 1 ||
+                                        PinCubit.get(context)
+                                            .pinNum
+                                            .length >
+                                            index
+                                        ? const Color(0xFF5164BF)
+                                        : state is ErrorToUnlockState? Colors.red:null,
                                     border: Border.all(color: Colors.black),
                                     borderRadius: BorderRadius.circular(50.r),
                                   ),
@@ -129,7 +120,7 @@ class SetPin extends StatelessWidget {
                       ],
                     ),
                     SizedBox(
-                      height: 35.h,
+                      height: 42.h,
                     ),
                     Container(
                       width: 234.w,
@@ -140,25 +131,24 @@ class SetPin extends StatelessWidget {
                             padding: const EdgeInsets.all(12.0),
                             child: InkWell(
                               onTap: () {
-                                PinCubit.get(context)
-                                    .buttonPinSet((index + 1).toString());
+                                PinCubit.get(context).buttonPinSet((index+1).toString());
                               },
                               child: Container(
                                 width: 15.w,
                                 height: 15.h,
                                 decoration: ShapeDecoration(
                                   shape:
-                                      OvalBorder(side: BorderSide(width: 1.w)),
+                                  OvalBorder(side: BorderSide(width: 1.w)),
                                 ),
                                 child:
-                                    Center(child: Text((index + 1).toString())),
+                                Center(child: Text((index + 1).toString())),
                               ),
                             ),
                           );
                         },
                         gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3),
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3),
                         itemCount: 9,
                       ),
                     ),
@@ -198,40 +188,27 @@ class SetPin extends StatelessWidget {
                         SizedBox(
                           width: 20.w,
                         ),
-                        Container(
-                          width: 58.w,
-                          height: 58.h,
-                          decoration: ShapeDecoration(
-                              shape: OvalBorder(side: BorderSide(width: 1.w)),
-                              color: Colors.black),
-                          child: const Icon(
-                            Icons.fingerprint,
-                            size: 50,
-                            color: Colors.white,
+                        InkWell(
+                          onTap: () {
+                            PinCubit.get(context).unLockPin(context);
+                          },
+                          child: Container(
+                            width: 58.w,
+                            height: 58.h,
+                            decoration: ShapeDecoration(
+                                shape: OvalBorder(side: BorderSide(width: 1.w)),
+                                color: const Color(0xFF5164BF)),
+                            child:  Center(
+                              child: Text("Done",style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16.sp
+                              ),),
+                            )
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 35.h,),
-                    ElevatedButton(onPressed: (){
-                      PinCubit.get(context).signInWithGoogle(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(117.w, 50.h),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.r),
-                      ),
-                      backgroundColor: const Color(0xFF5164BF),
-                    ), child: Text(
-                      'Set',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22.sp,
-                        fontFamily: 'San Francisco Display',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    )
                   ],
                 );
               },

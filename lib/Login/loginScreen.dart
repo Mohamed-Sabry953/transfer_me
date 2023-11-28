@@ -14,6 +14,7 @@ class loginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var args=ModalRoute.of(context)?.settings.arguments;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -85,7 +86,7 @@ class loginScreen extends StatelessWidget {
                         SizedBox(height: 60.h,),
                         InkWell(
                           onTap: () {
-                            LoginCubit.get(context).login(Email.text, Pass.text, context);
+                            LoginCubit.get(context).login(args.toString(),Email.text, Pass.text, context);
                           },
                           child: Center(
                             child: Container(

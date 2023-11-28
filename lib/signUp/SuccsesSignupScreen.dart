@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
-import 'package:transfer_me/Login/loginScreen.dart';
-import 'package:transfer_me/Taps/ProfileTap/SetProfile/SetProfileScreen.dart';
 
 class SuccsesSignupScreen extends StatelessWidget {
   static const String routeName = 'SuccsesSignupScreen';
@@ -111,7 +109,7 @@ class SuccsesSignupScreen extends StatelessWidget {
             height: 59.h,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(context,  loginScreen.routeName, (route) => false);
+                Navigator.pushNamedAndRemoveUntil(context,  HomeLayout.routeName, (route) => false);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFF5166BF),
