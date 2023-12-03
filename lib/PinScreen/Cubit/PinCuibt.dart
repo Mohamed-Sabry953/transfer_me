@@ -105,9 +105,9 @@ class PinCubit extends Cubit<PinStates> {
       }
     });
   }
-  unLockPin(BuildContext context){
+  unLockPin(BuildContext context,String navAddress){
     if(userModel.pin==pinContent&&pinNum.length==5){
-      Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, navAddress, (route) => false);
       emit(SucToUnlockState());
     }
     else{
@@ -115,6 +115,16 @@ class PinCubit extends Cubit<PinStates> {
       pinNum.removeRange(0, pinNum.length);
       pinContent="";
       emit(SucToDelValOfPin());
+    }
+  }
+  changePin(BuildContext context){
+    emit(PinLoadingState());
+    if(pinNum.length==5){
+      return FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).update(
+          {"pin":pinContent}).then((value) {
+            Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+            emit(SucToUpdatePin());
+          },);
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
@@ -146,5 +147,19 @@ class ProfileCubit extends Cubit<ProfileStates> {
   fingerPrint(int num){
     count=count+num;
     emit(SetProfileGetDataFromFirebaseSuccsesState());
+  }
+
+  updatePicUserFirebaseData(BuildContext context) async {
+    emit(ProfileLoadingState());
+    userImgFileUrl= await imageToFirebaseStorage();
+    return users.doc(FirebaseAuth.instance.currentUser!.uid).update(
+        {
+          "profileImage": userImgFileUrl
+        }).then((value) {
+      emit(SetProfileLastNameSuccsesValidationState());
+      Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+    },).catchError((e){
+      print(e.toString());
+    });
   }
 }

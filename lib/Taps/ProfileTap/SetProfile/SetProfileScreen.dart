@@ -70,7 +70,7 @@ class SetProfileScreen extends StatelessWidget {
                                       ),
                                       child: ProfileCubit.get(context).userImgFile !=null? CircleAvatar(
                                         backgroundImage: FileImage(ProfileCubit.get(context).userImgFile!),
-                                      ):ImageIcon(
+                                      ):const ImageIcon(
                                         AssetImage('assets/images/upload.png'),
                                         size: 25,
                                         color: Colors.white,

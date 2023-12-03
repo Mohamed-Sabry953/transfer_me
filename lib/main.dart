@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
+import 'package:transfer_me/PinScreen/ChangePin.dart';
 import 'package:transfer_me/PinScreen/SetPinScreen.dart';
 import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
 import 'package:transfer_me/PinScreen/pinLock.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
               SetPin.routeName:(context)=>const SetPin(),
               SetPin_Login.routeName:(context)=>const SetPin_Login(),
               PinLock.routeName:(context)=>const PinLock(),
+              ChangePin.routeName:(context)=>const ChangePin(),
             },
             initialRoute:
             ProfileCubit.get(context).firebaseuser == null

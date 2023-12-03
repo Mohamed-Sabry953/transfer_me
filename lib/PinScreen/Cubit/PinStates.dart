@@ -6,6 +6,7 @@ class SucToUnlockState extends PinStates{}
 class ErrorToUnlockState extends PinStates{}
 class SucToDelValOfPin extends PinStates{}
 class SucToDelFromPinList extends PinStates{}
+class SucToUpdatePin extends PinStates{}
 class SucSetUserPinToFirebaseData extends PinStates{}
 class LoginWithGmailSuccsesState extends PinStates{}
 class PinGetDataFromFirebaseSucState extends PinStates{}
