@@ -14,6 +14,7 @@ import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoVerifyScreen.dart';
+import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
 import 'package:transfer_me/signUp/SuccsesSignupScreen.dart';
 import 'package:transfer_me/signUp/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -67,6 +68,7 @@ class MyApp extends StatelessWidget {
               SetPin_Login.routeName:(context)=>const SetPin_Login(),
               PinLock.routeName:(context)=>const PinLock(),
               ChangePin.routeName:(context)=>const ChangePin(),
+              TransferTap.routeName:(context)=>const TransferTap(),
             },
             initialRoute:
             ProfileCubit.get(context).firebaseuser == null

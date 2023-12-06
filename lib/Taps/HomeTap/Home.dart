@@ -87,7 +87,19 @@ class HomeTap extends StatelessWidget {
                   ),
                   Container(
                     height: 90,
-                    child: ListView.separated(
+                    child: HomeLayoutCubit.get(context).cards.isEmpty?
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "No Cards add yet",
+                          style: Constant.stringStyle(
+                              20.sp, FontWeight.w500, Colors.black, 0.0),
+                        )
+                      ],
+                    )
+                        :
+                    ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return InkWell(

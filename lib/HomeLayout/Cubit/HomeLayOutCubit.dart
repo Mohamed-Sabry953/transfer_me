@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transfer_me/HomeLayout/Cubit/HomeLayOutStates.dart';
 import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
+import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
 import 'package:transfer_me/models/PaymentMethodModel.dart';
 
 import '../../models/UserModel.dart';
@@ -39,26 +40,17 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   UserModel userModel = UserModel(accountNo: 0, Email: "");
   List<PaymentMethodModel> cards = [];
 
-  void changeIndex(int index, BuildContext context, String email, String image,
-      String firstName, String lastName) {
+  void changeIndex(int index, BuildContext context) {
     Currentindex = index;
     if (Currentindex == 3) {
-      Navigator.pushNamed(context, ProfileTap.routeName,
-          arguments: UserModel(
-              accountNo: 0,
-              Email: email,
-              profileImage: image,
-              firstname: firstName,
-              lastname: lastName));
+      Navigator.pushNamed(context, ProfileTap.routeName);
       Currentindex = 0;
     } else if (Currentindex == 1) {
-      Navigator.pushNamed(context, MyWalletTap.routeName,
-          arguments: UserModel(
-              accountNo: 0,
-              Email: email,
-              profileImage: image,
-              firstname: firstName,
-              lastname: lastName));
+      Navigator.pushNamed(context, MyWalletTap.routeName);
+      Currentindex = 0;
+    }
+    else if (Currentindex == 2) {
+      Navigator.pushNamed(context, TransferTap.routeName);
       Currentindex = 0;
     }
 

@@ -8,7 +8,6 @@ import 'package:transfer_me/HomeLayout/drawer_item/drawer.dart';
 import 'package:transfer_me/Shared/Constant/Constant.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/AddCard.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/carditem.dart';
-import 'package:transfer_me/models/UserModel.dart';
 
 class MyWalletTap extends StatelessWidget {
   static const String routeName = 'MyWalletTap';
@@ -17,14 +16,13 @@ class MyWalletTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as UserModel;
     return BlocProvider(
       create: (context) => HomeLayoutCubit()..getCardDataFromFirebase(),
       lazy: false,
       child: BlocConsumer<HomeLayoutCubit, HomeLayoutStates>(
         builder: (context, state) {
           return Scaffold(
-            drawer: DrawerItem(args),
+            drawer: DrawerItem(),
             backgroundColor: Colors.white.withOpacity(0.9),
             body: CustomScrollView(
               slivers: [
@@ -94,11 +92,27 @@ class MyWalletTap extends StatelessWidget {
                                     const Color(0xFF5163BF),
                                     0.0)),
                         SizedBox(
-                          height: 20.h,
+                          height: 10.h,
                         ),
+                        const Divider(color: Colors.black,thickness: 1),
                         SizedBox(
                           height: 90,
-                          child: ListView.separated(
+                          child: HomeLayoutCubit.get(context).cards.isEmpty?
+                          Padding(
+                            padding: REdgeInsets.only(top: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            Text(
+                            "No Cards add yet",
+                              style: Constant.stringStyle(
+                                  20.sp, FontWeight.w500, Colors.black, 0.0),
+                            )
+                              ],
+                            ),
+                          )
+                              :
+                          ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
                                 return InkWell(
@@ -239,6 +253,7 @@ class MyWalletTap extends StatelessWidget {
                         SizedBox(
                           height: 15.h,
                         ),
+                        const Divider(color: Colors.black,thickness: 1),
                       ],
                     ),
                   ),
@@ -312,9 +327,12 @@ class MyWalletTap extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3),
                 ),
+                const SliverToBoxAdapter(
+                  child:Divider(color: Colors.black,thickness: 1),
+                ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 20.h,
+                    height: 10.h,
                   ),
                 ),
                 SliverToBoxAdapter(
