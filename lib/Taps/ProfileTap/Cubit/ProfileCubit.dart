@@ -109,6 +109,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   phoneNoVerify(BuildContext context,String phoneNo)async{
     try {
+      emit(ProfileLoadingState());
       FirebaseAuth auth = FirebaseAuth.instance;
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: "+201062832633",
@@ -124,6 +125,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
           },
           codeSent: (String verificationId, int? resendToken) async {
             String smsCode = phoneNo;
+            emit(ProfileLoadingState());
             PhoneAuthCredential credential = PhoneAuthProvider.credential(
                 verificationId: verificationId, smsCode: smsCode);
             await auth.signInWithCredential(credential);
@@ -156,8 +158,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
         {
           "profileImage": userImgFileUrl
         }).then((value) {
-      emit(SetProfileLastNameSuccsesValidationState());
       Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+      emit(SetProfileLastNameSuccsesValidationState());
     },).catchError((e){
       print(e.toString());
     });

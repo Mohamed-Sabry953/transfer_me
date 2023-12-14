@@ -341,7 +341,7 @@ class signup extends StatelessWidget {
                               child: Text(
                                 "This email was used before",
                                 style: Constant.stringStyle(
-                                    18.sp, FontWeight.w300, Colors.black, 0.0),
+                                    16.sp, FontWeight.w300, Colors.black, 0.0),
                               ),
                             ),
                             SizedBox(height: 20.h,),

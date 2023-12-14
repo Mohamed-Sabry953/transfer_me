@@ -128,7 +128,8 @@ class phoneNoVerifyScreen extends StatelessWidget {
               if (state is SetProfileNameSuccsesValidationState) {}
               if (state is ProfileLoadingState) {
                 showDialog(context: context, builder: (context) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator(
+                  ));
                 },);
               }
             },)),

@@ -68,9 +68,10 @@ class MyApp extends StatelessWidget {
               SetPin_Login.routeName:(context)=>const SetPin_Login(),
               PinLock.routeName:(context)=>const PinLock(),
               ChangePin.routeName:(context)=>const ChangePin(),
-              TransferTap.routeName:(context)=>const TransferTap(),
+              TransferTap.routeName:(context)=> TransferTap(),
             },
             initialRoute:
+              // TransferTap.routeName
             ProfileCubit.get(context).firebaseuser == null
               ? loginScreen.routeName
               : PinLock.routeName,

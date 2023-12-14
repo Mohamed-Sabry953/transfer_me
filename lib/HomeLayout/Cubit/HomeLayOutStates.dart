@@ -12,4 +12,6 @@ class SetColorSucssesState extends HomeLayoutStates{}
 class SetColorLoadingState extends HomeLayoutStates{}
 class SetColorErrorState extends HomeLayoutStates{}
 class AddBalanceLoadingState extends HomeLayoutStates{}
+class BalanceCheckValidatorErrorState extends HomeLayoutStates{}
+class BalanceCheckValidatorSucState extends HomeLayoutStates{}
 class SelectCardIndexSuccsesState extends HomeLayoutStates{}

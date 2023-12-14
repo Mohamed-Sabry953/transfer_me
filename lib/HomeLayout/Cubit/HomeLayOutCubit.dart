@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,6 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   bool activeValidation = false;
   UserModel userModel = UserModel(accountNo: 0, Email: "");
   List<PaymentMethodModel> cards = [];
-
   void changeIndex(int index, BuildContext context) {
     Currentindex = index;
     if (Currentindex == 3) {
@@ -163,4 +161,23 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     selectCardIndex = index;
     emit(SelectCardIndexSuccsesState());
   }
+
+  String? validateAmount(String? value) {
+    if(value!=0.toString()){
+      if (int.parse(value!)>=int.parse(cards[selectCardIndex].cardBalance.toString())) {
+        emit(BalanceCheckValidatorErrorState());
+        return 'The value is very high';
+      }
+      else if(int.parse(value)<=int.parse(cards[selectCardIndex].cardBalance.toString())&&int.parse(value)<10){
+        return "The amount can be at least 10\$ ";
+      }
+    }
+  else if(value==0.toString()){
+      emit(BalanceCheckValidatorErrorState());
+      return "The amount can be at least 10\$ ";
+    }
+    emit(BalanceCheckValidatorSucState());
+    return null;
+  }
+
 }
