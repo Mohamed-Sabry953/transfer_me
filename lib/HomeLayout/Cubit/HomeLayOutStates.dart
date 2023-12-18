@@ -15,3 +15,8 @@ class AddBalanceLoadingState extends HomeLayoutStates{}
 class BalanceCheckValidatorErrorState extends HomeLayoutStates{}
 class BalanceCheckValidatorSucState extends HomeLayoutStates{}
 class SelectCardIndexSuccsesState extends HomeLayoutStates{}
+class GetIncomingTransactionsSucState extends HomeLayoutStates{}
+class GetOutgoingTransactionsSucState extends HomeLayoutStates{}
+class GetTransactionsLoadingState extends HomeLayoutStates{}
+class GetTransactionsSucState extends HomeLayoutStates{}
+class ChangeOnboardingIndexSucState extends HomeLayoutStates{}

@@ -158,7 +158,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
         {
           "profileImage": userImgFileUrl
         }).then((value) {
-      Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+      Navigator.pop(context);
       emit(SetProfileLastNameSuccsesValidationState());
     },).catchError((e){
       print(e.toString());

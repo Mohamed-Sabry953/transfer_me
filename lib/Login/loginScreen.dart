@@ -163,12 +163,12 @@ class loginScreen extends StatelessWidget {
                                 width: 60,
                                 height: 60,
                                 decoration: ShapeDecoration(
-                                  color: Color(0xFFEEEEEE),
+                                  color: const Color(0xFFEEEEEE),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                 ),
-                                child: Image(image: AssetImage('assets/images/google.png')),
+                                child: const Image(image: AssetImage('assets/images/google.png')),
                               ),
                             ),
                             SizedBox(
@@ -178,12 +178,12 @@ class loginScreen extends StatelessWidget {
                               width: 60,
                               height: 60,
                               decoration: ShapeDecoration(
-                                color: Color(0xFFEEEEEE),
+                                color: const Color(0xFFEEEEEE),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                               ),
-                              child: Image(image: AssetImage('assets/images/Facebook.png')),
+                              child: const Image(image: AssetImage('assets/images/Facebook.png')),
                             ),
                           ],
                         ),

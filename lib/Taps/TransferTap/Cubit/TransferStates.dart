@@ -8,3 +8,4 @@ class SucCheckAccNoState extends TransferStates{}
 class AccNoValidatorErrorState extends TransferStates{}
 class AccNoValidatorSucState extends TransferStates{}
 class TransferSucState extends TransferStates{}
+class TransAddToFirebaseSucState extends TransferStates{}

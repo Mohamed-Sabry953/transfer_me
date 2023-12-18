@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
+import 'package:transfer_me/HomeLayout/onBoardingScreens/onBoarding.dart';
 import 'package:transfer_me/Login/Cubit/LoginStates.dart';
 
 import '../../models/UserModel.dart';
@@ -25,15 +26,13 @@ class LoginCubit extends Cubit<LoginStates>{
         emit(SuccsesLoginState());
         if(pinContent.length!=5){
           Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
-          print(pinContent);
           return users.doc(FirebaseAuth.instance.currentUser!.uid).update(
               {
                 "secondLog":true,
               });
         }
         else{
-        Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
-        print(pinContent);
+        Navigator.pushNamedAndRemoveUntil(context, OnBoardingScreen.routeName, (route) => false);
           return users.doc(FirebaseAuth.instance.currentUser!.uid).update(
               {"pin": pinContent,
               });

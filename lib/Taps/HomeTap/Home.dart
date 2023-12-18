@@ -14,9 +14,7 @@ class HomeTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => HomeLayoutCubit()..getCardDataFromFirebase(),
-    lazy: false,
-    child: BlocConsumer<HomeLayoutCubit,HomeLayoutStates>(
+    return BlocConsumer<HomeLayoutCubit,HomeLayoutStates>(
       builder: (context, state) {
         return SingleChildScrollView(
           child: Container(
@@ -65,16 +63,16 @@ class HomeTap extends StatelessWidget {
                               fontFamily: 'San Francisco Display',
                               fontWeight: FontWeight.w500,
                             )),
-                    SizedBox(
-                      height: 15.h,
-                    ),
-                    Text("\$${HomeLayoutCubit.get(context).Balance}",
-                        style: TextStyle(
-                          color: Color(0xFF5163BF),
-                          fontSize: 35,
-                          fontFamily: 'San Francisco Display',
-                          fontWeight: FontWeight.w700,
-                        )),
+                        SizedBox(
+                          height: 15.h,
+                        ),
+                        Text("\$${HomeLayoutCubit.get(context).Balance}",
+                            style: TextStyle(
+                              color: Color(0xFF5163BF),
+                              fontSize: 35,
+                              fontFamily: 'San Francisco Display',
+                              fontWeight: FontWeight.w700,
+                            )),
                       ],
                     ),
                   ),
@@ -146,11 +144,11 @@ class HomeTap extends StatelessWidget {
                                       ),
                                       Text(
                                           "${
-                                          HomeLayoutCubit.get(context)
-                                              .cards[index]
-                                              .HolderName
-                                              .substring(0, 2)
-                                        }...",
+                                              HomeLayoutCubit.get(context)
+                                                  .cards[index]
+                                                  .HolderName
+                                                  .substring(0, 2)
+                                          }...",
                                           style: Constant.stringStyle(
                                               12.sp,
                                               FontWeight.w500,
@@ -267,14 +265,14 @@ class HomeTap extends StatelessWidget {
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
+                          return IncomingTransItem(index) ;
+                        },
+                        separatorBuilder: (context, index) {
                           return SizedBox(
                             width: 14.w,
                           );
                         },
-                        separatorBuilder: (context, index) {
-                          return IncomingTransItem() ;
-                        },
-                        itemCount: 5),
+                        itemCount: HomeLayoutCubit.get(context).inComing.isEmpty? 1:HomeLayoutCubit.get(context).inComing.length),
                   ) ,
                   SizedBox(
                     height: 20.h,
@@ -282,7 +280,7 @@ class HomeTap extends StatelessWidget {
                   const Divider(color: Colors.black45,thickness: 2,),
                   SizedBox(height: 20.h,),
                   Row(
-                    children: [
+                    children: const [
                       Text('Outgoing Transactions',
                           style: TextStyle(
                             color: Color(0xFF878787),
@@ -309,14 +307,14 @@ class HomeTap extends StatelessWidget {
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
+                          return OutgoingTransactionsItem(index) ;
+                        },
+                        separatorBuilder: (context, index) {
                           return SizedBox(
                             width: 14.w,
                           );
                         },
-                        separatorBuilder: (context, index) {
-                          return OutgoingTransactionsItem() ;
-                        },
-                        itemCount: 5),
+                        itemCount: HomeLayoutCubit.get(context).outgoing.isEmpty? 5:HomeLayoutCubit.get(context).outgoing.length),
                   ),
                   SizedBox(
                     height: 20.h,
@@ -365,8 +363,7 @@ class HomeTap extends StatelessWidget {
         );
       },
       listener: (context, state) {
-
       },
-    ),);
+    );
   }
 }

@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transfer_me/HomeLayout/Cubit/HomeLayOutCubit.dart';
+
+import '../../../Shared/Constant/Constant.dart';
 
 class IncomingTransItem extends StatelessWidget {
-  const IncomingTransItem({super.key});
-
+  IncomingTransItem(this.index, {super.key});
+  int index;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return HomeLayoutCubit.get(context).inComing.isEmpty?
+    Padding(
+      padding: REdgeInsets.only(left: 30,top: 15),
+      child: Center(
+        child: Text(
+          "No income transactions yet",
+          style: Constant.stringStyle(
+              20.sp, FontWeight.w500, Colors.black, 0.0),
+        ),
+      ),
+    ):
+    Container(
       alignment: Alignment.topLeft,
       width: 157.w,
       height: 197.h,
@@ -33,8 +47,8 @@ class IncomingTransItem extends StatelessWidget {
                       width: 40.w,
                       height: 40.h,
                       decoration: ShapeDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/paypal.png"),
+                        image:  DecorationImage(
+                          image: NetworkImage(HomeLayoutCubit.get(context).inComing[index].senderImg),
                           fit: BoxFit.fill,
                         ),
                         shape: RoundedRectangleBorder(
@@ -51,14 +65,14 @@ class IncomingTransItem extends StatelessWidget {
                             SizedBox(
                               width: 40.w,
                             ),
-                            Image(image: AssetImage('assets/images/arrowtop.png'))
+                            const Image(image: AssetImage('assets/images/arrowtop.png'))
                           ],
                         ),
-                        Text('+ \$62.54',
+                        Text('+ \$${HomeLayoutCubit.get(context).inComing[index].amountTransfer}',
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               color: Color(0xFF8EDFEB),
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               fontFamily: 'San Francisco Display',
                               fontWeight: FontWeight.w700,
                             )),
@@ -72,7 +86,7 @@ class IncomingTransItem extends StatelessWidget {
               ),
               Padding(
                 padding: REdgeInsets.only(left: 8.0, right: 8, top: 8),
-                child: Opacity(
+                child: const Opacity(
                     opacity: 0.60,
                     child: Text('From',
                         style: TextStyle(
@@ -83,19 +97,20 @@ class IncomingTransItem extends StatelessWidget {
                         ))),
               ),
               Padding(
-            padding: REdgeInsets.only(left: 8.0, right: 8, top: 8),
-            child: Text('John\nMorrison',
-                style: TextStyle(
-                  color: Color(0xFF1E1E1E),
-                  fontSize: 12,
-                  fontFamily: 'San Francisco Display',
-                  fontWeight: FontWeight.w700,
-                )),
-          ),
+                padding: REdgeInsets.only(left: 8.0, right: 8, top: 8),
+                child: Text(HomeLayoutCubit.get(context).inComing[index].senderName,
+                    style: TextStyle(
+                      color: const Color(0xFF1E1E1E),
+                      fontSize: 12.sp,
+                      fontFamily: 'San Francisco Display',
+                      fontWeight: FontWeight.w700,
+                    )),
+              ),
             ],
           ),
         ],
       ),
     );
   }
+
 }

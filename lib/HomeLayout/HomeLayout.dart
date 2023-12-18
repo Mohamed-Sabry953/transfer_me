@@ -41,62 +41,69 @@ class HomeLayout extends StatelessWidget {
         backgroundColor: Colors.grey.shade400,
         body: BlocProvider(
             create: (context) =>
-                HomeLayoutCubit()..getProfileDataFromFirebase(),
+                HomeLayoutCubit()..getProfileDataFromFirebase()..getCardDataFromFirebase()..getTransactionsData(),
             child: BlocConsumer<HomeLayoutCubit, HomeLayoutStates>(
               builder: (context, state) {
-                return Stack(
-                  children: [
-                    const HomeTap(),
-                    Positioned(
-                      bottom: 20.h,
-                      right: 24.w,
-                      left: 24.w,
-                      child: Container(
-                        padding: REdgeInsets.only(left: 33),
-                        width: 327.w,
-                        height: 60.h,
-                        decoration: BoxDecoration(
-                            color: Color(0xff5164BF),
-                            borderRadius: BorderRadius.circular(20.r)),
-                        child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                  onTap: () {
-                                    HomeLayoutCubit.get(context).changeIndex(
-                                      index,
-                                      context
-                                    );
-                                  },
-                                  child: Container(
-                                      margin:
-                                          REdgeInsets.only(top: 17, bottom: 10),
-                                      width: 44,
-                                      height: 80,
-                                      decoration: ShapeDecoration(
-                                        color: HomeLayoutCubit.get(context)
-                                                    .Currentindex ==
-                                                index
-                                            ? Colors.white
-                                            : Color(0xff5164BF),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(50),
-                                            topRight: Radius.circular(50),
+                return RefreshIndicator(
+                  onRefresh: () async{
+                    HomeLayoutCubit.get(context).inComing.removeRange(0, HomeLayoutCubit.get(context).inComing.length);
+                    HomeLayoutCubit.get(context).outgoing.removeRange(0, HomeLayoutCubit.get(context).outgoing.length);
+                    await HomeLayoutCubit.get(context).getTransactionsData();
+                  },
+                  child: state is GetTransactionsLoadingState?const Center(child: CircularProgressIndicator()):Stack(
+                    children: [
+                      const HomeTap(),
+                      Positioned(
+                        bottom: 20.h,
+                        right: 24.w,
+                        left: 24.w,
+                        child: Container(
+                          padding: REdgeInsets.only(left: 33),
+                          width: 327.w,
+                          height: 60.h,
+                          decoration: BoxDecoration(
+                              color: Color(0xff5164BF),
+                              borderRadius: BorderRadius.circular(20.r)),
+                          child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                    onTap: () {
+                                      HomeLayoutCubit.get(context).changeIndex(
+                                        index,
+                                        context
+                                      );
+                                    },
+                                    child: Container(
+                                        margin:
+                                            REdgeInsets.only(top: 17, bottom: 10),
+                                        width: 44.w,
+                                        height: 80.h,
+                                        decoration: ShapeDecoration(
+                                          color: HomeLayoutCubit.get(context)
+                                                      .Currentindex ==
+                                                  index
+                                              ? Colors.white
+                                              : const Color(0xff5164BF),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(50),
+                                              topRight: Radius.circular(50),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      child: BottomNav[index]));
-                            },
-                            separatorBuilder: (context, index) {
-                              return SizedBox(
-                                width: 35.w,
-                              );
-                            },
-                            itemCount: 4),
+                                        child: BottomNav[index]));
+                              },
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  width: 28.w,
+                                );
+                              },
+                              itemCount: 4),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
               listener: (context, state) {

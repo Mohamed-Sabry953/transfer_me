@@ -35,9 +35,9 @@ class DrawerItem extends StatelessWidget {
                   Container(
                       width: 85.w,
                       height: 85.h,
-                      decoration: const ShapeDecoration(
-                        color: Color(0xFF5063BF),
-                        shape: OvalBorder(),
+                      decoration:  BoxDecoration(
+                        color: const Color(0xFF5063BF),
+                        borderRadius: BorderRadius.circular(42.r)
                       ),
                       child: CircleAvatar(
                         backgroundImage: NetworkImage(
@@ -59,12 +59,12 @@ class DrawerItem extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: REdgeInsets.only(top: 6.0, left: 9),
+                    padding: REdgeInsets.only(top: 6.0, ),
                     child: Text(
                       HomeLayoutCubit.get(context).userModel.Email??"",
                       style: TextStyle(
                         color: Color(0xFF827F7F),
-                        fontSize: 16.sp,
+                        fontSize: 15.sp,
                         fontFamily: 'San Francisco Display',
                         fontWeight: FontWeight.w400,
                       ),

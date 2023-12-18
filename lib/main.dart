@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
+import 'package:transfer_me/HomeLayout/onBoardingScreens/onBoarding.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/PinScreen/ChangePin.dart';
 import 'package:transfer_me/PinScreen/SetPinScreen.dart';
@@ -69,9 +70,9 @@ class MyApp extends StatelessWidget {
               PinLock.routeName:(context)=>const PinLock(),
               ChangePin.routeName:(context)=>const ChangePin(),
               TransferTap.routeName:(context)=> TransferTap(),
+              OnBoardingScreen.routeName:(context)=>  OnBoardingScreen(),
             },
             initialRoute:
-              // TransferTap.routeName
             ProfileCubit.get(context).firebaseuser == null
               ? loginScreen.routeName
               : PinLock.routeName,

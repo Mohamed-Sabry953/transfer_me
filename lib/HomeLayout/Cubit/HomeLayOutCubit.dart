@@ -9,6 +9,7 @@ import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
 import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
 import 'package:transfer_me/models/PaymentMethodModel.dart';
+import 'package:transfer_me/models/transactiosModel.dart';
 
 import '../../models/UserModel.dart';
 
@@ -35,9 +36,13 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   int Balance = 0;
   int colorIndex = 0;
   int selectCardIndex = 0;
+  int onBoardingIndex=0;
   bool activeValidation = false;
   UserModel userModel = UserModel(accountNo: 0, Email: "");
   List<PaymentMethodModel> cards = [];
+  List<TransactionModel>inComing=[];
+  List<TransactionModel>outgoing=[];
+
   void changeIndex(int index, BuildContext context) {
     Currentindex = index;
     if (Currentindex == 3) {
@@ -90,8 +95,8 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     );
   }
 
-  AddPaymentMethodTofirebase(
-      int CardNumber, String HolderName, String ExpireDate, int CVV) {
+  AddPaymentMethodTofirebase(int CardNumber, String HolderName,
+      String ExpireDate, int CVV) {
     PaymentMethodModel paymentMethodModel = PaymentMethodModel(
         CardNumber: CardNumber.toString(),
         HolderName: HolderName,
@@ -102,7 +107,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
         cardBalance: Random().nextInt(10000));
     var Collection = getPaymentMethodCollection();
     var docRef =
-        Collection.doc("${FirebaseAuth.instance.currentUser!.uid}$CardNumber");
+    Collection.doc("${FirebaseAuth.instance.currentUser!.uid}$CardNumber");
     docRef.set(paymentMethodModel);
   }
 
@@ -112,7 +117,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   }
 
   setCardColor(String cardNo, int index, BuildContext context, String email,
-      String image,String firstName,String lastName) {
+      String image, String firstName, String lastName) {
     return getPaymentMethodCollection()
         .doc("${FirebaseAuth.instance.currentUser!.uid}$cardNo")
         .update({"color": index}).then((value) {
@@ -132,7 +137,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   }
 
   getCardDataFromFirebase() {
-    List<PaymentMethodModel>CardImedate=[];
+    List<PaymentMethodModel>CardImedate = [];
     emit(CardsGetDataFromFirebaseLoadingState());
     emit(AddBalanceLoadingState());
     getPaymentMethodCollection().get().then((QuerySnapshot querySnapshot) {
@@ -151,7 +156,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
             CardImedate.add(paymentMethodModel);
             Balance += paymentMethodModel.cardBalance!;
           }
-          cards=CardImedate;
+          cards = CardImedate;
         });
       }
     });
@@ -163,16 +168,19 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   }
 
   String? validateAmount(String? value) {
-    if(value!=0.toString()){
-      if (int.parse(value!)>=int.parse(cards[selectCardIndex].cardBalance.toString())) {
+    if (value != 0.toString()) {
+      if (int.parse(value!) >=
+          int.parse(cards[selectCardIndex].cardBalance.toString())) {
         emit(BalanceCheckValidatorErrorState());
         return 'The value is very high';
       }
-      else if(int.parse(value)<=int.parse(cards[selectCardIndex].cardBalance.toString())&&int.parse(value)<10){
+      else if (int.parse(value) <=
+          int.parse(cards[selectCardIndex].cardBalance.toString()) &&
+          int.parse(value) < 10) {
         return "The amount can be at least 10\$ ";
       }
     }
-  else if(value==0.toString()){
+    else if (value == 0.toString()) {
       emit(BalanceCheckValidatorErrorState());
       return "The amount can be at least 10\$ ";
     }
@@ -180,4 +188,35 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     return null;
   }
 
+  getTransactionsData() {
+    emit(GetTransactionsLoadingState());
+    FirebaseFirestore.instance
+        .collection("Transaction")
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        TransactionModel transactionModel = TransactionModel(
+            receiveImg: doc['receiveImg'],
+            senderImg: doc['senderImg'],
+            amountTransfer: doc['amountTransfer'],
+            senderName: doc['senderName'],
+            receiverName: doc['receiverName'],
+            senderAccNo: doc['senderAccNo'],
+            receiverAccNo: doc['receiverAccNo'],
+            id: doc['id']);
+        if(userModel.accountNo==transactionModel.receiverAccNo){
+          print(transactionModel.receiverAccNo);
+          inComing.add(transactionModel);
+        }
+        else if(transactionModel.senderAccNo==userModel.accountNo){
+          outgoing.add(transactionModel);
+        }
+      }
+        emit(GetTransactionsSucState());
+    });
+  }
+  changeIndexOnboarding(int index){
+    onBoardingIndex=index;
+    emit(ChangeOnboardingIndexSucState());
+  }
 }
