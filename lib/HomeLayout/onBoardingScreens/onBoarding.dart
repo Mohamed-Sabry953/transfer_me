@@ -63,7 +63,8 @@ class OnBoardingScreen extends StatelessWidget {
                           width: 10.w,
                           height: 10.h,
                           decoration: BoxDecoration(
-                            color:  HomeLayoutCubit.get(context).onBoardingIndex==index?const Color(0xFF5063BF):const Color(0xFF8EDFEB),
+                            color:  HomeLayoutCubit.get(context).onBoardingIndex==
+                                index?const Color(0xFF5063BF):const Color(0xFF8EDFEB),
                             borderRadius: BorderRadius.circular(50.r),
                           ),
                         );

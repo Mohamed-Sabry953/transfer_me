@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/PinScreen/Cubit/PinCuibt.dart';
 import 'package:transfer_me/PinScreen/Cubit/PinStates.dart';
+import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/phoneNoScreen.dart';
 import '../Shared/Constant/Constant.dart';
 
@@ -29,7 +30,7 @@ class ChangePin extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(context, phoneNoScreen.routeName, (route) => false);
+                              Navigator.pushNamedAndRemoveUntil(context, ProfileTap.routeName, (route) => false);
                             },
                             child: Container(
                               width: 63.w,

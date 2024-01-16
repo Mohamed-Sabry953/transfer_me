@@ -5,11 +5,12 @@ import 'package:transfer_me/Login/Cubit/LoginCubit.dart';
 import 'package:transfer_me/Login/Cubit/LoginStates.dart';
 import 'package:transfer_me/signUp/signup.dart';
 
+import '../Shared/Constant/Constant.dart';
+
 class loginScreen extends StatelessWidget {
   static const String routeName="loginScreen";
   final TextEditingController Email = TextEditingController();
   final TextEditingController Pass = TextEditingController();
-  final TextEditingController re_Pass = TextEditingController();
   var formkey = GlobalKey<FormState>();
 
   @override
@@ -18,7 +19,7 @@ class loginScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: BlocProvider<LoginCubit>(create: (context) => LoginCubit(),
+        body: BlocProvider<LoginCubit>(create: (context) => LoginCubit()..getProfileDataFromFirebase(),
           child: BlocConsumer<LoginCubit, LoginStates>(
             builder: (context, state) {
               return Padding(
@@ -72,6 +73,7 @@ class loginScreen extends StatelessWidget {
                               fontWeight: FontWeight.w500,)),
                         TextFormField(
                             controller: Pass,
+                            obscureText: true,
                             decoration: InputDecoration(
                                 suffixIcon:Pass.text.isEmpty?
                                 const Icon(Icons.visibility_off)
@@ -84,31 +86,27 @@ class loginScreen extends StatelessWidget {
                             )
                         ),
                         SizedBox(height: 60.h,),
-                        InkWell(
-                          onTap: () {
-                            LoginCubit.get(context).login(args.toString(),Email.text, Pass.text, context);
-                          },
-                          child: Center(
-                            child: Container(
-                              width: 201.w,
-                              height: 59.h,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFF5063BF),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
+                        Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Center(
-                                child: Text(
-                                    'Log In',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22.sp,
-                                      fontFamily: 'San Francisco Display',
-                                      fontWeight: FontWeight.w600,)),
-                              ),
+                              backgroundColor:Color(0xFF5063BF),
+                              fixedSize: Size(201.w, 59.h)
                             ),
-                          ),
+                            onPressed: () {
+                              LoginCubit.get(context).login(args.toString(),Email.text, Pass.text, context);
+                            },
+                            child: Center(
+                              child: Text(
+                                  'Log In',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22.sp,
+                                    fontFamily: 'San Francisco Display',
+                                    fontWeight: FontWeight.w600,)),
+                            ),),
                         ),
                         SizedBox(
                           height: 30.h,
@@ -220,6 +218,20 @@ class loginScreen extends StatelessWidget {
                 ),
               );
             }, listener: (context, state) {
+              if(state is LoadingLoginState){
+                showDialog(context: context, builder: (context) {
+                  return const Center(child: CircularProgressIndicator());
+                },);
+              }
+              else if(state is ErrorLoginState){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Constant.errorMassage(context, "Password or email is invalid");
+                  },
+                );
+              }
             }
             // else if (state is SignupVaildatorPasswordErrorState) {}
             // else if (state is VisablityState) {}

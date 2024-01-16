@@ -8,6 +8,7 @@ import 'package:transfer_me/PinScreen/ChangePin.dart';
 import 'package:transfer_me/PinScreen/SetPinScreen.dart';
 import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
 import 'package:transfer_me/PinScreen/pinLock.dart';
+import 'package:transfer_me/Taps/HomeTap/TransferDetailes.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/AddCardColor.dart';
 import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileCubit.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
               ChangePin.routeName:(context)=>const ChangePin(),
               TransferTap.routeName:(context)=> TransferTap(),
               OnBoardingScreen.routeName:(context)=>  OnBoardingScreen(),
+              TransferDetails.routeName:(context)=>  TransferDetails(),
             },
             initialRoute:
             ProfileCubit.get(context).firebaseuser == null

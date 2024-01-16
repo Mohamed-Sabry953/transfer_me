@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/Taps/ProfileTap/SetProfile/SetProfileScreen.dart';
 import 'package:transfer_me/signUp/Cubit/SignupCubit.dart';
 import 'package:transfer_me/signUp/Cubit/SignupStates.dart';
@@ -146,40 +147,36 @@ class signup extends StatelessWidget {
                         SizedBox(
                           height: 30.h,
                         ),
-                        InkWell(
-                          onTap: () {
-                            if (formkey.currentState!.validate()) {
-                              SignupCubit.get(context)
-                                  .singup(Email.text, Pass.text, () {
-                                Navigator.pushNamedAndRemoveUntil(
-                                    context,
-                                    SetProfileScreen.routeName,
-                                    (route) => false,
-                                    arguments: SignupCubit.get(context).id);
-                              });
-                            }
-                          },
-                          child: Center(
-                            child: Container(
-                              width: 201,
-                              height: 59,
-                              decoration: ShapeDecoration(
-                                color: Color(0xFF5063BF),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                              ),
-                              child: Center(
-                                child: Text('Sign Up',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontFamily: 'San Francisco Display',
-                                      fontWeight: FontWeight.w600,
-                                    )),
-                              ),
+                        Center(
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                          ),
+                              backgroundColor: const Color(0xFF5063BF),
+                              fixedSize: Size(201.w, 59.h)
+                            ),
+                            onPressed: () {
+                              if (formkey.currentState!.validate()) {
+                                SignupCubit.get(context)
+                                    .singup(Email.text, Pass.text, () {
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      SetProfileScreen.routeName,
+                                          (route) => false,
+                                      arguments: SignupCubit.get(context).id);
+                                });
+                              }
+                          },
+                            child: Center(
+                              child: Text('Sign Up',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22.sp,
+                                    fontFamily: 'San Francisco Display',
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            ),)
                         ),
                         SizedBox(
                           height: 30.h,
@@ -277,13 +274,18 @@ class signup extends StatelessWidget {
                                   fontFamily: 'San Francisco Display',
                                   fontWeight: FontWeight.w500,
                                 )),
-                            Text('Login',
-                                style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontSize: 14.sp,
-                                  fontFamily: 'San Francisco Display',
-                                  fontWeight: FontWeight.w500,
-                                )),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamedAndRemoveUntil(context, loginScreen.routeName, (route) => false);
+                              },
+                              child: Text('Login',
+                                  style: TextStyle(
+                                    color: Colors.blueAccent,
+                                    fontSize: 14.sp,
+                                    fontFamily: 'San Francisco Display',
+                                    fontWeight: FontWeight.w500,
+                                  )),
+                            ),
                           ],
                         )
                       ],
@@ -305,60 +307,11 @@ class signup extends StatelessWidget {
               } else if (state is SignupVaildatorRePasswordLoadingState) {
                 SignupCubit.get(context).pass = Pass.text;
               } else if (state is SignupErrorState) {
+                Navigator.pop(context);
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return Center(
-                      child: Container(
-                        width: 250.w,
-                        height: 170.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            Text(
-                              "error",
-                              style: Constant.stringStyle(
-                                  22.sp, FontWeight.w600, Colors.black, 0.0),
-                            ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.red,
-                              indent: 50.w,
-                              endIndent: 50.w,
-                            ),
-                            SizedBox(
-                              height: 15.h,
-                            ),
-                            Center(
-                              child: Text(
-                                "This email was used before",
-                                style: Constant.stringStyle(
-                                    16.sp, FontWeight.w300, Colors.black, 0.0),
-                              ),
-                            ),
-                            SizedBox(height: 20.h,),
-                            ElevatedButton(onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                              style: ElevatedButton.styleFrom(backgroundColor: Colors.red,
-                              fixedSize: Size(90.w, 40.h)), child: Center(
-                                child: Text("Close",style: Constant.stringStyle(
-                                  16.sp, FontWeight.w300, Colors.white, 0.0,),),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+                    return Constant.errorMassage(context, "This email was used before");
                   },
                 );
               }

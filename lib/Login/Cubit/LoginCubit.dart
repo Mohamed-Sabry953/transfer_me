@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/HomeLayout/onBoardingScreens/onBoarding.dart';
 import 'package:transfer_me/Login/Cubit/LoginStates.dart';
+import 'package:transfer_me/signUp/signup.dart';
 
 import '../../models/UserModel.dart';
 
@@ -17,6 +16,7 @@ class LoginCubit extends Cubit<LoginStates>{
   static LoginCubit get(context)=>BlocProvider.of(context);
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
   bool? secondLog;
+  List<UserModel>accounts=[];
   login(String pinContent,String emailAddress,String password,BuildContext context) async {
     emit(LoadingLoginState());
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -55,29 +55,42 @@ class LoginCubit extends Cubit<LoginStates>{
         return value.Tojson();
       },);
   }
-  Future<UserCredential> signInWithGoogle(BuildContext context) async {
+
+  getProfileDataFromFirebase() {
+    emit(LoadingLoginState());
+    FirebaseFirestore.instance
+        .collection('Users')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        accounts.add(UserModel(accountNo: doc["accountNo"],
+            Email: doc["Email"],
+            firstname: doc["firstname"],
+            lastname: doc["lastname"],
+            profileImage: doc["profileImage"]));
+      }
+    });}
+  signInWithGoogle(BuildContext context) async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    // Once signed in, return the UserCredential
-    UserModel user=UserModel(
-      firstname: googleUser!.displayName,
-      lastname: "",
-      phoneNo: 01062832633,
-      profileImage: googleUser.photoUrl,
-      id: FirebaseAuth.instance.currentUser!.uid,
-      accountNo: Random().nextInt(400000000), Email: googleUser.email,);
-    var Collection= getUserColletion();
-    var docRef=Collection.doc(FirebaseAuth.instance.currentUser!.uid);
-    docRef.set(user);
-    emit(LoginWithGmailSuccsesState());
-    Navigator.pushNamed(context, HomeLayout.routeName,);
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
+
+    for(int i=0;i<accounts.length;i++){
+      if(googleUser?.email==accounts[i].Email){
+        final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+        // Create a new credential
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+        return await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+          Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+          return value;
+        });
+      }
+      GoogleSignIn().signOut().then((value) {
+        Navigator.pushNamed(context, signup.routeName);
+      },);
+    }
+     }
 }
