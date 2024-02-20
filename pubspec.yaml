@@ -48,6 +48,10 @@ dependencies:
   firebase_storage: ^11.2.8
   firebase_auth_platform_interface: ^6.19.1
   intl_phone_field: ^3.2.0
+  firebase_messaging: ^14.6.9
+  pin_code_fields: ^8.0.1
+  dropdown_button2: ^2.1.4
+  provider: ^6.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

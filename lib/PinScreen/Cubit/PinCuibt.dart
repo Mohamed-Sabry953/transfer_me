@@ -15,21 +15,24 @@ class PinCubit extends Cubit<PinStates> {
 
   static PinCubit get(context) => BlocProvider.of(context);
   List<String> pinNum = [];
-  String pinContent = '';
+  final TextEditingController pinContent = TextEditingController();
   CollectionReference users = FirebaseFirestore.instance.collection('Users');
   UserModel userModel = UserModel(accountNo: 0, Email: "");
+  bool? check;
+  bool buttonColor=false;
+  int buttColorIndex=0;
 
   buttonPinSet(String pinNumChar) {
     if (pinNum.length < 5) {
       pinNum.add(pinNumChar);
-      pinContent += pinNumChar;
+      pinContent.text += pinNumChar;
     emit(SucToAddCharToPinList());
     }
   }
 
   buttonPinDelete() {
     pinNum.removeRange(0, pinNum.length);
-    pinContent = '';
+    pinContent.text = '';
     emit(SucToDelFromPinList());
   }
 
@@ -65,7 +68,7 @@ class PinCubit extends Cubit<PinStates> {
           id: FirebaseAuth.instance.currentUser!.uid,
           accountNo: Random().nextInt(400000000),
           Email: googleUser.email,
-          pin: pinContent);
+          pin: pinContent.text);
       var Collection = getUserColletion();
       var docRef = Collection.doc(FirebaseAuth.instance.currentUser!.uid);
       docRef.set(user);
@@ -81,7 +84,7 @@ class PinCubit extends Cubit<PinStates> {
     if (pinNum.length == 5) {
       Navigator.pushNamedAndRemoveUntil(
           context, loginScreen.routeName, (route) => false,
-          arguments: pinContent);
+          arguments: pinContent.text);
       emit(SucSetUserPinToFirebaseData());
     }
   }
@@ -106,15 +109,21 @@ class PinCubit extends Cubit<PinStates> {
     });
   }
   unLockPin(BuildContext context,String navAddress){
-    if(userModel.pin==pinContent&&pinNum.length==5){
-      Navigator.pushNamedAndRemoveUntil(context, navAddress, (route) => false);
-      emit(SucToUnlockState());
+    if(userModel.pin==pinContent.text&&pinNum.length==5){
+      check=true;
+        emit(SucToUnlockState());
+      Future.delayed(const Duration(seconds: 2),() {
+        Navigator.pushNamedAndRemoveUntil(context, navAddress, (route) => false);
+      },);
     }
     else{
-      emit(ErrorToUnlockState());
-      pinNum.removeRange(0, pinNum.length);
-      pinContent="";
-      emit(SucToDelValOfPin());
+      check=false;
+      Future.delayed(const Duration(seconds: 1),() {
+        emit(ErrorToUnlockState());
+        pinNum.removeRange(0, pinNum.length);
+        pinContent.text="";
+        emit(SucToDelValOfPin());
+      },);
     }
   }
   changePin(BuildContext context){
@@ -126,5 +135,14 @@ class PinCubit extends Cubit<PinStates> {
             emit(SucToUpdatePin());
           },);
     }
+  }
+  changeButtColor(int index){
+    buttColorIndex=index;
+    buttonColor=true;
+    Future.delayed(const Duration(milliseconds: 200),() {
+      buttonColor=false;
+    emit(ChangeButtColorSucState());
+    },);
+    emit(ChangeButtColorIndexSucState());
   }
 }

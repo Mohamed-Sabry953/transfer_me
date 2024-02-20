@@ -8,6 +8,8 @@ class UserModel {
   String? profileImage;
   String? pin;
   bool secondLog;
+  String deviceToken;
+  String accState;
 
   UserModel(
       {required this.accountNo,
@@ -18,7 +20,10 @@ class UserModel {
       this.profileImage,
       this.phoneNo,
       this.pin,
-        this.secondLog=false});
+        this.secondLog=false,
+        this.deviceToken='',
+        this.accState="active"
+      });
 
   UserModel.fromjson(Map<String, dynamic> json)
       : this(
@@ -29,8 +34,9 @@ class UserModel {
       profileImage: json["profileImage"],
       phoneNo: json["phoneNo"],
       pin: json["pin"],
-      secondLog: json["secondLog"]
-
+      secondLog: json["secondLog"],
+    deviceToken: json["deviceToken"],
+    accState: json["accState"],
   );
 
   Map<String, dynamic> Tojson() {
@@ -44,6 +50,8 @@ class UserModel {
       "phoneNo": phoneNo,
       "pin": pin,
       "secondLog": secondLog,
+      "deviceToken": deviceToken,
+      "accState": accState,
     };
   }
 }

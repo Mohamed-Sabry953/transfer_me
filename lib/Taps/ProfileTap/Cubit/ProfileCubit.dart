@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/PinScreen/SetpinScreen_Login.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
@@ -140,7 +139,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
     }
   }
   Logout(BuildContext context){
-    return FirebaseAuth.instance.signOut().then((value) => Navigator.pushNamedAndRemoveUntil(context, loginScreen.routeName, (route) => false));
+    return FirebaseAuth.instance.signOut()
+        .then((value) => Navigator.pushNamedAndRemoveUntil(context, loginScreen.routeName, (route) => false));
   }
   autoLogin() {
     firebaseuser = null;
@@ -163,5 +163,13 @@ class ProfileCubit extends Cubit<ProfileStates> {
     },).catchError((e){
       print(e.toString());
     });
+  }
+  changePass() async {
+    emit(ChangePassLoadingState());
+    Future.delayed(Duration(seconds: 5),() async {
+      emit(ChangePassSucssesState());
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: FirebaseAuth.instance.currentUser!.email!);
+    },);
   }
 }

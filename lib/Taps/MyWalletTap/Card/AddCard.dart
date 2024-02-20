@@ -101,6 +101,7 @@ class AddCardScreen extends StatelessWidget {
                               height: 5.sp,
                             ),
                             TextFormField(
+                              maxLength: 16,
                                 controller: CardNo,
                                 decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
@@ -171,6 +172,7 @@ class AddCardScreen extends StatelessWidget {
                               height: 5.sp,
                             ),
                             TextFormField(
+                              maxLength: 5,
                                 controller: ExpireDate,
                                 decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
@@ -206,6 +208,8 @@ class AddCardScreen extends StatelessWidget {
                               height: 5.sp,
                             ),
                             TextFormField(
+                              maxLength: 4,
+                                keyboardType: TextInputType.number,
                                 controller: CVV,
                                 decoration: InputDecoration(
                                     enabledBorder: UnderlineInputBorder(
@@ -223,7 +227,7 @@ class AddCardScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          height: 60.h,
+                          height: 30.h,
                         ),
                         ElevatedButton(
                           onPressed: () {

@@ -5,3 +5,7 @@ class SuccsesLoginState extends LoginStates{}
 class SuccsesCheckLoginState extends LoginStates{}
 class ErrorLoginState extends LoginStates{}
 class LoginWithGmailSuccsesState extends LoginStates{}
+class CheckAccActivitySuccsesState extends LoginStates{}
+class CheckAccActivityLoadingState extends LoginStates{}
+class BanAccActivityState extends LoginStates{}
+class AccIsDeletedState extends LoginStates{}

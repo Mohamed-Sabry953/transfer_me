@@ -6,6 +6,7 @@ import 'package:transfer_me/Shared/Constant/Constant.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileCubit.dart';
 import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileInfoItem.dart';
+import 'package:transfer_me/messages/completeMessage.dart';
 import '../../PinScreen/pinLock.dart';
 class ProfileTap extends StatelessWidget {
   static const String routeName = 'ProfileTap';
@@ -27,7 +28,7 @@ class ProfileTap extends StatelessWidget {
               child: Scaffold(
                 drawer: DrawerItem(),
                 backgroundColor: Colors.white,
-                body: state is SetProfileGetDataFromFirebaseSuccsesState
+                body: state is SetProfileGetDataFromFirebaseSuccsesState || state is ChangePassLoadingState || state is ChangePassSucssesState
                     ? SingleChildScrollView(
                       child: Container(
                           padding: REdgeInsets.only( left: 22, right: 22),
@@ -223,31 +224,36 @@ class ProfileTap extends StatelessWidget {
                               SizedBox(
                                 height: 5.h,
                               ),
-                              Container(
-                                width: 331.w,
-                                height: 38.h,
-                                decoration: ShapeDecoration(
-                                  color: const Color(0xFFF4F4F4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.r),
+                              GestureDetector(
+                                onTap: () {
+                                  ProfileCubit.get(context).changePass();
+                                },
+                                child: Container(
+                                  width: 331.w,
+                                  height: 38.h,
+                                  decoration: ShapeDecoration(
+                                    color: const Color(0xFFF4F4F4),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: REdgeInsets.only(right: 10, left: 20),
-                                  child: Row(
-                                    children: [
-                                      Text('Change Password',
-                                          style: Constant.stringStyle(
-                                              12.sp,
-                                              FontWeight.w400,
-                                              const Color(0xFF5164BF),
-                                              0.0)),
-                                      const Spacer(),
-                                      const Opacity(
-                                        opacity: 0.40,
-                                        child: Icon(Icons.arrow_forward_ios),
-                                      )
-                                    ],
+                                  child: Padding(
+                                    padding: REdgeInsets.only(right: 10, left: 20),
+                                    child: Row(
+                                      children: [
+                                        Text('Change Password',
+                                            style: Constant.stringStyle(
+                                                12.sp,
+                                                FontWeight.w400,
+                                                const Color(0xFF5164BF),
+                                                0.0)),
+                                        const Spacer(),
+                                        const Opacity(
+                                          opacity: 0.40,
+                                          child: Icon(Icons.arrow_forward_ios),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -325,14 +331,24 @@ class ProfileTap extends StatelessWidget {
                           ),
                         ),
                     )
-                    : Center(child: CircularProgressIndicator()),
+                    : const Center(child: CircularProgressIndicator()),
               ),
             ),
           );
         },
         listener: (context, state) {
-          if (state is SetProfileGetDataFromFirebaseLoadingState) {}
-        },
+          if(state is ChangePassLoadingState){
+            showDialog(context: context, builder: (context) {
+              return const Center(child: CircularProgressIndicator(),);
+
+            },);}
+            else if(state is ChangePassSucssesState){
+              Navigator.pop(context);
+              showDialog(context: context, builder: (context) {
+                return CompleteMessage("Reset pass email is send", 257,218);
+              },);
+            }
+          }
       ),
     );
   }
@@ -447,7 +463,9 @@ class ProfileTap extends StatelessWidget {
                   )
               );
             },
-            listener: (context, state) {},
+            listener: (context, state) {
+
+            },
           ),
         );
       },

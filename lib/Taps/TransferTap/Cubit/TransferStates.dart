@@ -9,3 +9,6 @@ class AccNoValidatorErrorState extends TransferStates{}
 class AccNoValidatorSucState extends TransferStates{}
 class TransferSucState extends TransferStates{}
 class TransAddToFirebaseSucState extends TransferStates{}
+class TransMessageSucState extends TransferStates{}
+class TransErrorPinColorSucState extends TransferStates{}
+class TransEmptyPinColorSucState extends TransferStates{}

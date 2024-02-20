@@ -27,10 +27,18 @@ class Constant{
              SizedBox(
                height: 10.h,
              ),
-             Text(
-               "error",
-               style: Constant.stringStyle(
-                   22.sp, FontWeight.w600, Colors.black, 0.0),
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 SizedBox(width: 10.w,),
+                 Text(
+                   "error",
+                   style: Constant.stringStyle(
+                       22.sp, FontWeight.w600, Colors.black, 0.0),
+                 ),
+                 SizedBox(width: 5.w,),
+                 Icon(Icons.error_outline,size: 25.w,color: Colors.red,),
+               ],
              ),
              Divider(
                thickness: 1,
@@ -38,17 +46,14 @@ class Constant{
                indent: 50.w,
                endIndent: 50.w,
              ),
-             SizedBox(
-               height: 15.h,
+             const Spacer(),
+             Text(
+               text,
+               style: Constant.stringStyle(
+                   18.sp, FontWeight.w400, Colors.black, 0.0),
              ),
-             Center(
-               child: Text(
-                 text,
-                 style: Constant.stringStyle(
-                     16.sp, FontWeight.w300, Colors.black, 0.0),
-               ),
-             ),
-             SizedBox(height: 20.h,),
+             SizedBox(height: 10.h,),
+             const Spacer(),
              ElevatedButton(onPressed: () {
                Navigator.pop(context);
              },
@@ -57,7 +62,8 @@ class Constant{
                  child: Text("Close",style: Constant.stringStyle(
                    16.sp, FontWeight.w300, Colors.white, 0.0,),),
                ),
-             )
+             ),
+             SizedBox(height: 10.h,)
            ],
          ),
        ),

@@ -18,3 +18,5 @@ class SetProfilePinSuccsesState extends ProfileStates{}
 class SetProfileNoVerifyErrorState extends ProfileStates{}
 class AutoLoginSucssesState extends ProfileStates{}
 class PrintFingerSucssesState extends ProfileStates{}
+class ChangePassLoadingState extends ProfileStates{}
+class ChangePassSucssesState extends ProfileStates{}

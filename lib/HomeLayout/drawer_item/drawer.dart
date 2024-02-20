@@ -131,26 +131,39 @@ class DrawerItem extends StatelessWidget {
                   SizedBox(
                     height: 30.h,
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.insert_chart_outlined_rounded,
-                        color: Color(0xff8EDFEB),
-                        size: 25,
-                      ),
-                      SizedBox(
-                        width: 17.w,
-                      ),
-                      Text(
-                        'Statistics',
-                        style: TextStyle(
-                          color: const Color(0xFF1E1E1E),
-                          fontSize: 18.sp,
-                          fontFamily: 'San Francisco Display',
-                          fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                    },
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.insert_chart_outlined_rounded,
+                          color: Color(0xff8EDFEB),
+                          size: 25,
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          width: 17.w,
+                        ),
+                        Text(
+                          'Statistics ',
+                          style: TextStyle(
+                            color: const Color(0xFF1E1E1E),
+                            fontSize: 18.sp,
+                            fontFamily: 'San Francisco Display',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '(coming soon) ',
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 11.sp,
+                            fontFamily: 'San Francisco Display',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 30.h,

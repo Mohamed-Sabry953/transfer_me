@@ -7,6 +7,7 @@ class TransactionModel {
   String id;
   int senderAccNo;
   int receiverAccNo;
+  String transState="waiting";
 
   TransactionModel(
       {required this.receiveImg,
@@ -16,7 +17,8 @@ class TransactionModel {
       required this.receiverName,
       required this.senderAccNo,
       required this.receiverAccNo,
-        required this.id});
+        required this.id,
+         transState});
 
   TransactionModel.fromjson(Map<String, dynamic> json)
       : this(
@@ -28,6 +30,7 @@ class TransactionModel {
     senderAccNo: json["senderAccNo"],
     receiverAccNo: json["receiverAccNo"],
     id: json["id"],
+    transState: json["transState"],
   );
 
   Map<String, dynamic> Tojson() {
@@ -39,7 +42,8 @@ class TransactionModel {
       "receiverName":receiverName,
       "senderAccNo": senderAccNo,
       "receiverAccNo": receiverAccNo,
-      "id":id
+      "id":id,
+      "transState":transState,
     };
   }
 }

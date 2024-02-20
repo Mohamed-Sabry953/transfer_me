@@ -232,6 +232,24 @@ class loginScreen extends StatelessWidget {
                   },
                 );
               }
+              else if(state is BanAccActivityState){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Constant.errorMassage(context, "this account is blocked");
+                  },
+                );
+              }
+              else if(state is AccIsDeletedState){
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Constant.errorMassage(context, "Sorry..this account is \n    permanent banned");
+                  },
+                );
+              }
             }
             // else if (state is SignupVaildatorPasswordErrorState) {}
             // else if (state is VisablityState) {}

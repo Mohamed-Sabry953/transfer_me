@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Taps/TransferTap/Cubit/TransferStates.dart';
 import 'package:transfer_me/models/UserModel.dart';
 import 'package:transfer_me/models/transactiosModel.dart';
@@ -18,10 +17,12 @@ class TransferCubit extends Cubit<TransferStates> {
   int amountVal = 0;
   List<UserModel>users = [];
   UserModel userModel = UserModel(accountNo: 0, Email: "Email");
+  UserModel userOne = UserModel(accountNo: 0, Email: "Email");
   UserModel userTwo=UserModel(accountNo: 0, Email: "Email");
   String name = "";
   bool check = false;
   int newCardBal = 0;
+  bool? checkPin;
 
   String? validateAccNo(String? value) {
     if (value != null) {
@@ -64,8 +65,28 @@ class TransferCubit extends Cubit<TransferStates> {
             Email: documentSnapshot.get('Email'),
             id: documentSnapshot.get('id'),
             phoneNo: documentSnapshot.get('phoneNo'));
+        emit(SucGetDataState());
         userModel = profile;
-        print(userModel.Email);
+        print(userModel.pin);
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
+  getPinFromFirebase() {
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        UserModel profile = UserModel(
+            accountNo: documentSnapshot.get('accountNo'),
+            Email: documentSnapshot.get('Email'),
+            id: documentSnapshot.get('id'),
+            pin: documentSnapshot.get('pin'));
+        userOne = profile;
+        print(userOne.pin);
         emit(SucGetDataState());
       } else {
         print('Document does not exist on the database');
@@ -100,28 +121,41 @@ class TransferCubit extends Cubit<TransferStates> {
   }
 
   addTransactionOperateToFirebase(
-      String amountTransfer,String docId,BuildContext context) {
+      String amountTransfer,String docId,BuildContext context,String img,String firstName,String lastName,int accNo) {
     emit(TransferLoadingState());
     TransactionModel transactionModel = TransactionModel(
-        receiveImg: userTwo.profileImage!,
+        receiveImg: img,
         senderImg: userModel.profileImage!,
         amountTransfer: amountTransfer,
         senderName: "${userModel.firstname} ${userModel.lastname}",
-        receiverName: "${userTwo.firstname} ${userTwo.lastname}",
+        receiverName: "$firstName $lastName",
         senderAccNo: userModel.accountNo,
-        receiverAccNo: userTwo.accountNo,
+        receiverAccNo: accNo,
         id: Random().nextInt(400000000).toString());
     var collection = getTransactionCollection();
     var docRef =
     collection.doc("${FirebaseAuth.instance.currentUser!.uid}${Random().nextInt(10000)}");
     docRef.set(transactionModel).then((value) {
-      emit(TransAddToFirebaseSucState());
+      Future.delayed(const Duration(seconds: 3),() {
+        emit(TransAddToFirebaseSucState());
+      },);
       return payments.doc(docId).update(
           {"cardBalance": newCardBal,
           }).then((value) {
-        Navigator.pushNamed(context, HomeLayout.routeName);
-        emit(TransferSucState());
+        Future.delayed(const Duration(seconds: 3),() {
+          emit(TransferSucState());
+          Navigator.popUntil(context, ModalRoute.withName("TransferTap"));
+        },);
+    emit(TransMessageSucState());
       },);
     },);
+  }
+  changeErrorColorOfPin(){
+    checkPin=false;
+    emit(TransErrorPinColorSucState());
+  }
+  changeEmptyColorOfPin(){
+    checkPin=null;
+    emit(TransEmptyPinColorSucState());
   }
 }

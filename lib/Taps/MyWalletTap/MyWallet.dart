@@ -12,8 +12,29 @@ import 'package:transfer_me/Taps/MyWalletTap/Card/carditem.dart';
 class MyWalletTap extends StatelessWidget {
   static const String routeName = 'MyWalletTap';
 
-  const MyWalletTap({super.key});
-
+   MyWalletTap({super.key});
+  List<Icon>icons=[
+    const Icon(Icons.electric_bolt,color: Color(0xff8EDFEB),size: 30,),
+    const Icon(Icons.compare_arrows,color: Color(0xff8EDFEB),size: 30,),
+    const Icon(Icons.wifi,color: Color(0xff8EDFEB),size: 30,),
+    const Icon(Icons.account_balance,color: Colors.black,size: 30,),
+    const Icon(Icons.airplanemode_active,color: Colors.black,size: 30,),
+    const Icon(Icons.shopping_cart,color: Colors.black,size: 30,),
+    const Icon(Icons.phone,color: Color(0xff8EDFEB),size: 30,),
+    const Icon(Icons.fastfood,color: Color(0xff8EDFEB),size: 30,),
+    const Icon(Icons.school,color: Color(0xff8EDFEB),size: 30,),
+  ];
+  List<String>titles=[
+        'Electricity',
+    'Transfer\nmoney',
+    'WiFi',
+    'bank\ntransfer',
+    'Book\nticket',
+    'shopping',
+    'recharge',
+    'Fast\nfood',
+    'University\nfees',
+  ];
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -288,9 +309,10 @@ class MyWalletTap extends StatelessWidget {
                           ],
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
+                              margin: REdgeInsets.only(top: 7),
                               width: 48.w,
                               height: 48.h,
                               decoration: ShapeDecoration(
@@ -298,25 +320,21 @@ class MyWalletTap extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8.r)),
                               ),
-                              child: const ImageIcon(
-                                AssetImage('assets/images/Electric.png'),
-                                size: 25,
-                                color: Color(0xff8EDFEB),
-                              ),
+                              child:  icons[index]
                             ),
                             SizedBox(
-                              height: 22.h,
+                              height: 10.h,
                             ),
                             SizedBox(
                               width: 87.w,
-                              child: Text('Electricity',
+                              child: Text(titles[index],
                                   textAlign: TextAlign.center,
                                   style: Constant.stringStyle(
-                                      12,
+                                      13.sp,
                                       FontWeight.w500,
-                                      index < 3
+                                      index < 3 || index>5
                                           ? Colors.white
-                                          : Color(0xFF001A4C),
+                                          : const Color(0xFF001A4C),
                                       0.0)),
                             )
                           ],

@@ -10,3 +10,5 @@ class SucToUpdatePin extends PinStates{}
 class SucSetUserPinToFirebaseData extends PinStates{}
 class LoginWithGmailSuccsesState extends PinStates{}
 class PinGetDataFromFirebaseSucState extends PinStates{}
+class ChangeButtColorSucState extends PinStates{}
+class ChangeButtColorIndexSucState extends PinStates{}

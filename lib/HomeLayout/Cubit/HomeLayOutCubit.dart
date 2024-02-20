@@ -205,7 +205,6 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
             receiverAccNo: doc['receiverAccNo'],
             id: doc['id']);
         if(userModel.accountNo==transactionModel.receiverAccNo){
-          print(transactionModel.receiverAccNo);
           inComing.add(transactionModel);
         }
         else if(transactionModel.senderAccNo==userModel.accountNo){
