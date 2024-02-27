@@ -130,7 +130,7 @@ class PinCubit extends Cubit<PinStates> {
     emit(PinLoadingState());
     if(pinNum.length==5){
       return FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser!.uid).update(
-          {"pin":pinContent}).then((value) {
+          {"pin":pinContent.text.toString()}).then((value) {
             Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
             emit(SucToUpdatePin());
           },);

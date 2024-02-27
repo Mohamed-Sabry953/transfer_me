@@ -9,6 +9,7 @@ import 'package:transfer_me/Taps/TransferTap/Cubit/TransferStates.dart';
 
 import '../../../messages/completeMessage.dart';
 import '../../../models/PaymentMethodModel.dart';
+import '../../Settings/settingsProvider.dart';
 
 class ConfirmPin extends StatelessWidget {
   String firstName;
@@ -36,7 +37,7 @@ class ConfirmPin extends StatelessWidget {
               width: double.infinity,
               height: 230.h,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color:SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20.r),
                       topLeft: Radius.circular(20.r))),
@@ -51,7 +52,7 @@ class ConfirmPin extends StatelessWidget {
                             Text("Type your PIN Code",
                               style: TextStyle(
                                   fontSize: 16.sp,
-                                  color: Colors.black
+                                  color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white
                               ),),
                           ],
                         ),
@@ -127,18 +128,18 @@ class ConfirmPin extends StatelessWidget {
                             Container(
                               width: 25.w,
                               height: 25.w,
-                              decoration: const BoxDecoration(
-                                color: Colors.black54,
+                              decoration:  BoxDecoration(
+                                color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
                                 shape: BoxShape.circle,
                               ),
                               child: Icon(
-                                Icons.question_mark, size: 18.sp, color: Colors.white70,),
+                                Icons.question_mark, size: 18.sp, color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white70:Colors.black,),
                             ),
                             SizedBox(width: 8.w,),
                             Text("Forget your pin code?",
                               style: TextStyle(
                                   fontSize: 16.sp,
-                                  color: Colors.black
+                                  color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white
                               ),),
                           ],
                         ),

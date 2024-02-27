@@ -8,6 +8,7 @@ import 'package:transfer_me/Taps/ProfileTap/Cubit/ProfileStates.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileInfoItem.dart';
 import 'package:transfer_me/messages/completeMessage.dart';
 import '../../PinScreen/pinLock.dart';
+import '../Settings/settingsProvider.dart';
 class ProfileTap extends StatelessWidget {
   static const String routeName = 'ProfileTap';
 
@@ -27,12 +28,12 @@ class ProfileTap extends StatelessWidget {
             child: SafeArea(
               child: Scaffold(
                 drawer: DrawerItem(),
-                backgroundColor: Colors.white,
+                backgroundColor: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.grey,
                 body: state is SetProfileGetDataFromFirebaseSuccsesState || state is ChangePassLoadingState || state is ChangePassSucssesState
                     ? SingleChildScrollView(
                       child: Container(
                           padding: REdgeInsets.only( left: 22, right: 22),
-                          color: Colors.white,
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black87,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -66,7 +67,7 @@ class ProfileTap extends StatelessWidget {
                                         style: Constant.stringStyle(
                                             20.sp,
                                             FontWeight.w600,
-                                            const Color(0xFF1E1E1E),
+                                            SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                             0.0)),
                                   ),
                                 ],

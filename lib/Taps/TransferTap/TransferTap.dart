@@ -12,6 +12,7 @@ import 'package:transfer_me/Taps/TransferTap/Cubit/TransferStates.dart';
 
 import '../../Shared/Constant/Constant.dart';
 import '../../models/PaymentMethodModel.dart';
+import '../Settings/settingsProvider.dart';
 
 class TransferTap extends StatelessWidget {
   static const String routeName = "TransferTap";
@@ -34,11 +35,12 @@ class TransferTap extends StatelessWidget {
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
+              backgroundColor: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.grey,
               resizeToAvoidBottomInset: false,
               drawer: DrawerItem(),
               body: SingleChildScrollView(
                   child: Container(
-                      color: Colors.white,
+                      color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black87,
                       child: BlocProvider(
                         create: (context) => TransferCubit()..getProfileDataFromFirebase()..getPinFromFirebase(),
                         child: BlocConsumer<TransferCubit,TransferStates>(
@@ -79,7 +81,7 @@ class TransferTap extends StatelessWidget {
                                             child: Text(
                                               'Money Transfer',
                                               style: TextStyle(
-                                                color: Color(0xFF1E1E1E),
+                                                color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
                                                 fontSize: 18.sp,
                                                 fontFamily: 'San Francisco Display',
                                                 fontWeight: FontWeight.w600,
@@ -250,7 +252,7 @@ class TransferTap extends StatelessWidget {
                                           Text(
                                             'Available Balance',
                                             style: TextStyle(
-                                              color: Color(0xFF878787),
+                                              color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,
                                               fontSize: 18.sp,
                                               fontFamily: 'San Francisco Display',
                                               fontWeight: FontWeight.w500,
@@ -297,7 +299,7 @@ class TransferTap extends StatelessWidget {
                                         child: Text(
                                           'Please, enter the receiver’s bank account number or phone number with the amount of transfer request in below field.',
                                           style: TextStyle(
-                                            color: Color(0xFF878787),
+                                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,
                                             fontSize: 15.sp,
                                             fontFamily: 'San Francisco Display',
                                             fontWeight: FontWeight.w400,
@@ -316,7 +318,7 @@ class TransferTap extends StatelessWidget {
                                           Text(
                                             'Account No',
                                             style: TextStyle(
-                                              color: Color(0xFF5265BE),
+                                              color: const Color(0xFF5265BE),
                                               fontSize: 14.sp,
                                               fontFamily: 'San Francisco Display',
                                               fontWeight: FontWeight.w600,
@@ -328,6 +330,9 @@ class TransferTap extends StatelessWidget {
                                           Container(
                                             margin: REdgeInsets.only(right: 20),
                                             child: TextFormField(
+                                              style: TextStyle(
+                                                color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white
+                                              ),
                                               keyboardType: TextInputType.number,
                                               onChanged: (value) {
                                                 TransferCubit.get(context).checkAccNo(value);
@@ -343,7 +348,7 @@ class TransferTap extends StatelessWidget {
                                                     margin: REdgeInsets.only(
                                                         top: 10, bottom: 10, right: 10, left: 10),
                                                     decoration: ShapeDecoration(
-                                                      color: Color(0xFF5063BF),
+                                                      color: const Color(0xFF5063BF),
                                                       shape: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(20.r),),),
                                                     child: const Icon(Icons.done, color: Colors.white, size: 15,))
@@ -390,6 +395,9 @@ class TransferTap extends StatelessWidget {
                                           Container(
                                             margin: REdgeInsets.only(right: 20),
                                             child: TextFormField(
+                                              style: TextStyle(
+                                                  color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white
+                                              ),
                                               controller: amount,
                                               validator: HomeLayoutCubit.get(context).validateAmount,
                                               keyboardType: TextInputType.number,
@@ -448,9 +456,9 @@ class TransferTap extends StatelessWidget {
                                                 Padding(
                                                   padding: REdgeInsets.only(left: 5,bottom: 5),
                                                   child: Text(name.text,style: TextStyle(
-                                                    color: Colors.black,
+                                                      color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
                                                     fontSize: 16.sp
-                                                  ),),
+                                                  )),
                                                 ),
                                                 const Spacer(),
                                                 name.text==TransferCubit.get(context).name &&name.text!=""?

@@ -48,6 +48,7 @@ class OnBoardingScreen extends StatelessWidget {
                     autoPlayAnimationDuration: const Duration(milliseconds: 100),
                     onPageChanged: (index, reason) {
                       HomeLayoutCubit.get(context).changeIndexOnboarding(index);
+                        HomeLayoutCubit.get(context).onBoardingButton(index);
                     },
                     viewportFraction: 1,
                     height: 495.h,
@@ -77,23 +78,26 @@ class OnBoardingScreen extends StatelessWidget {
                       itemCount: 3),
                 ),
                 SizedBox(height: 35.h,),
-                ElevatedButton(onPressed: (){
-                  Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
-                },
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(200.w, 60.h),
-                    backgroundColor: const Color(0xFF5063BF),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ), child:  Center(
-                    child:Text(
-                      'Continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        fontFamily: 'San Francisco Display',
-                        fontWeight: FontWeight.w600,
+                Visibility(
+                  visible: HomeLayoutCubit.get(context).onBoardingClick,
+                  child: ElevatedButton(onPressed: (){
+                    Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName, (route) => false);
+                  },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(200.w, 60.h),
+                      backgroundColor: const Color(0xFF5063BF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ), child:  Center(
+                      child:Text(
+                        'Continue',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.sp,
+                          fontFamily: 'San Francisco Display',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),

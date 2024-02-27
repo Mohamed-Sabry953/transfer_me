@@ -8,6 +8,7 @@ import 'package:transfer_me/Taps/HomeTap/items/OutgoingTransactionsItem.dart';
 
 import '../../HomeLayout/Cubit/HomeLayOutCubit.dart';
 import '../../Shared/Constant/Constant.dart';
+import '../Settings/settingsProvider.dart';
 
 class HomeTap extends StatelessWidget {
   const HomeTap({super.key});
@@ -20,7 +21,7 @@ class HomeTap extends StatelessWidget {
           child: Container(
             height: 1100.h,
             width: double.infinity,
-            color: Colors.white70,
+            color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white70:Colors.black87,
             child: Padding(
               padding: REdgeInsets.only(left: 10.0, right: 10, top: 25,bottom: 70),
               child: Column(
@@ -34,17 +35,30 @@ class HomeTap extends StatelessWidget {
                           onTap: () {
                             Scaffold.of(context).openDrawer();
                           },
-                          child: const Icon(
+                          child:  Icon(
                             Icons.menu_outlined,
-                            color: Colors.black,
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
                             size: 20,
                           ),
                         ),
                         const Spacer(),
-                        Icon(
-                          Icons.notifications_active_outlined,
-                          color: Colors.black,
-                          size: 22,
+                        Stack(
+                          children: [
+                            Padding(
+                              padding: REdgeInsets.only(left: 4,top: 3),
+                              child: Icon(
+                                Icons.notifications_active_outlined,
+                                color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
+                                size: 22,
+                              ),
+                            ),
+                            Container(
+                              width: 10.w,
+                              height: 10.h,
+                              decoration: const ShapeDecoration(shape: CircleBorder(),
+                              color: Colors.red),
+                            )
+                          ],
                         ),
                       ],
                     ),
@@ -58,8 +72,8 @@ class HomeTap extends StatelessWidget {
                       children: [
                         Text('Current Balance',
                             style: TextStyle(
-                              color: Color(0xFF878787),
-                              fontSize: 18,
+                              color:SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white ,
+                              fontSize: 18.sp,
                               fontFamily: 'San Francisco Display',
                               fontWeight: FontWeight.w500,
                             )),
@@ -69,7 +83,7 @@ class HomeTap extends StatelessWidget {
                         Text("\$${HomeLayoutCubit.get(context).Balance}",
                             style: TextStyle(
                               color: Color(0xFF5163BF),
-                              fontSize: 35,
+                              fontSize: 35.sp,
                               fontFamily: 'San Francisco Display',
                               fontWeight: FontWeight.w700,
                             )),
@@ -79,7 +93,7 @@ class HomeTap extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const Divider(color: Colors.black45,thickness: 2,),
+                   Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black45:Colors.white70,thickness: 2,),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -92,7 +106,7 @@ class HomeTap extends StatelessWidget {
                         Text(
                           "No Cards add yet",
                           style: Constant.stringStyle(
-                              20.sp, FontWeight.w500, Colors.black, 0.0),
+                              20.sp, FontWeight.w500, SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white, 0.0),
                         )
                       ],
                     )
@@ -233,7 +247,7 @@ class HomeTap extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const Divider(color: Colors.black45,thickness: 2,),
+                   Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black45:Colors.white70,thickness: 2,),
                   SizedBox(
                     height: 20.h,
                   ),
@@ -241,8 +255,8 @@ class HomeTap extends StatelessWidget {
                     children: [
                       Text('Incoming Transactions',
                           style: TextStyle(
-                            color: Color(0xFF878787),
-                            fontSize: 18,
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,
+                            fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
                           )),
@@ -250,11 +264,11 @@ class HomeTap extends StatelessWidget {
                       Text('See All',
                           style: TextStyle(
                             color: Color(0xFF5163BF),
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w400,
                           )),
-                      Icon(Icons.arrow_forward_ios,size: 10,),
+                      Icon(Icons.arrow_forward_ios,size: 10,color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,),
                     ],
                   ),
                   SizedBox(
@@ -277,26 +291,26 @@ class HomeTap extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const Divider(color: Colors.black45,thickness: 2,),
+                   Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black45:Colors.white70,thickness: 2,),
                   SizedBox(height: 20.h,),
                   Row(
-                    children: const [
+                    children:  [
                       Text('Outgoing Transactions',
                           style: TextStyle(
-                            color: Color(0xFF878787),
-                            fontSize: 18,
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,
+                            fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
                           )),
-                      Spacer(),
+                      const Spacer(),
                       Text('See All',
                           style: TextStyle(
-                            color: Color(0xFF5163BF),
-                            fontSize: 14,
+                            color: const Color(0xFF5163BF),
+                            fontSize: 14.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w400,
                           )),
-                      Icon(Icons.arrow_forward_ios,size: 10,),
+                      Icon(Icons.arrow_forward_ios,size: 10,color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,),
                     ],
                   ),
                   SizedBox(
@@ -319,13 +333,13 @@ class HomeTap extends StatelessWidget {
                   SizedBox(
                     height: 20.h,
                   ),
-                  const Divider(color: Colors.black45,thickness: 2,),
+                   Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black45:Colors.white70,thickness: 2,),
                   SizedBox(height: 20.h,),
                   Row(
                     children: [
                       Text('Other Transactions',
                           style: TextStyle(
-                            color: Color(0xFF878787),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white,
                             fontSize: 18,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,

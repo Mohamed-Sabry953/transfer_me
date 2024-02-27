@@ -8,6 +8,9 @@ import 'package:transfer_me/HomeLayout/drawer_item/drawer.dart';
 import 'package:transfer_me/Shared/Constant/Constant.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/AddCard.dart';
 import 'package:transfer_me/Taps/MyWalletTap/Card/carditem.dart';
+import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
+
+import '../Settings/settingsProvider.dart';
 
 class MyWalletTap extends StatelessWidget {
   static const String routeName = 'MyWalletTap';
@@ -44,7 +47,7 @@ class MyWalletTap extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             drawer: DrawerItem(),
-            backgroundColor: Colors.white.withOpacity(0.9),
+            backgroundColor: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white.withOpacity(0.9):Colors.black87,
             body: CustomScrollView(
               slivers: [
                 SliverToBoxAdapter(
@@ -77,7 +80,7 @@ class MyWalletTap extends StatelessWidget {
                             ),
                             Text('My wallet',
                                 style: Constant.stringStyle(
-                                    20.sp, FontWeight.w600, Colors.black, 0.0)),
+                                    20.sp, FontWeight.w600, SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white, 0.0)),
                             const SizedBox(),
                             const Icon(
                               Icons.notifications_active_outlined,
@@ -91,7 +94,7 @@ class MyWalletTap extends StatelessWidget {
                         ),
                         Text('Current Balance',
                             style: Constant.stringStyle(18.sp, FontWeight.w500,
-                                const Color(0xFF878787), 0.0)),
+                                SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF878787):Colors.white , 0.0)),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -115,7 +118,7 @@ class MyWalletTap extends StatelessWidget {
                         SizedBox(
                           height: 10.h,
                         ),
-                        const Divider(color: Colors.black,thickness: 1),
+                         Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,thickness: 1),
                         SizedBox(
                           height: 90,
                           child: HomeLayoutCubit.get(context).cards.isEmpty?
@@ -127,7 +130,7 @@ class MyWalletTap extends StatelessWidget {
                             Text(
                             "No Cards add yet",
                               style: Constant.stringStyle(
-                                  20.sp, FontWeight.w500, Colors.black, 0.0),
+                                  20.sp, FontWeight.w500,SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white , 0.0),
                             )
                               ],
                             ),
@@ -274,7 +277,7 @@ class MyWalletTap extends StatelessWidget {
                         SizedBox(
                           height: 15.h,
                         ),
-                        const Divider(color: Colors.black,thickness: 1),
+                         Divider(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,thickness: 1),
                       ],
                     ),
                   ),
@@ -283,61 +286,68 @@ class MyWalletTap extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                     childCount: 9,
                     (context, index) {
-                      return Container(
-                        margin:
-                            REdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                        width: 105.w,
-                        height: 112.h,
-                        decoration: ShapeDecoration(
-                          color: index < 3
-                              ? Colors.black
-                              : 3 < index && index < 6
-                                  ? Colors.white
-                                  : index == 3
-                                      ? Color(0xFFE80B26)
-                                      : Colors.green.shade700,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                      return GestureDetector(
+                        onTap: () {
+                          if(index==1){
+                          Navigator.pushNamed(context, TransferTap.routeName);
+                          }
+                        },
+                        child: Container(
+                          margin:
+                              REdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                          width: 105.w,
+                          height: 112.h,
+                          decoration: ShapeDecoration(
+                            color: index < 3
+                                ? SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.blue
+                                : 3 < index && index < 6
+                                    ? Colors.white
+                                    : index == 3
+                                        ? Color(0xFFE80B26)
+                                        : Colors.green.shade700,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            shadows: [
+                              BoxShadow(
+                                color: const Color(0x14000000),
+                                blurRadius: 10.r,
+                                offset: const Offset(0, 4),
+                                spreadRadius: 0.r,
+                              )
+                            ],
                           ),
-                          shadows: [
-                            BoxShadow(
-                              color: const Color(0x14000000),
-                              blurRadius: 10.r,
-                              offset: const Offset(0, 4),
-                              spreadRadius: 0.r,
-                            )
-                          ],
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: REdgeInsets.only(top: 7),
-                              width: 48.w,
-                              height: 48.h,
-                              decoration: ShapeDecoration(
-                                color: Colors.grey.shade200,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: REdgeInsets.only(top: 7),
+                                width: 48.w,
+                                height: 48.h,
+                                decoration: ShapeDecoration(
+                                  color: Colors.grey.shade200,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8.r)),
+                                ),
+                                child:  icons[index]
                               ),
-                              child:  icons[index]
-                            ),
-                            SizedBox(
-                              height: 10.h,
-                            ),
-                            SizedBox(
-                              width: 87.w,
-                              child: Text(titles[index],
-                                  textAlign: TextAlign.center,
-                                  style: Constant.stringStyle(
-                                      13.sp,
-                                      FontWeight.w500,
-                                      index < 3 || index>5
-                                          ? Colors.white
-                                          : const Color(0xFF001A4C),
-                                      0.0)),
-                            )
-                          ],
+                              SizedBox(
+                                height: 10.h,
+                              ),
+                              SizedBox(
+                                width: 87.w,
+                                child: Text(titles[index],
+                                    textAlign: TextAlign.center,
+                                    style: Constant.stringStyle(
+                                        13.sp,
+                                        FontWeight.w500,
+                                        index < 3 || index>5
+                                            ? Colors.white
+                                            : const Color(0xFF001A4C),
+                                        0.0)),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -362,7 +372,7 @@ class MyWalletTap extends StatelessWidget {
                         Text(
                           'My Cards',
                           style: TextStyle(
-                            color: Color(0xFF1E1E1E),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                             fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w600,
@@ -404,7 +414,7 @@ class MyWalletTap extends StatelessWidget {
                             child: Text(
                               "No Cards add yet",
                               style: Constant.stringStyle(
-                                  20.sp, FontWeight.w500, Colors.black, 0.0),
+                                  20.sp, FontWeight.w500, SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white, 0.0),
                             ),
                           );
                   },

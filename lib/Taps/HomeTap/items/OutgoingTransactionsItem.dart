@@ -6,6 +6,7 @@ import 'package:transfer_me/HomeLayout/Cubit/HomeLayOutStates.dart';
 
 import '../../../Shared/Constant/Constant.dart';
 import '../../../models/transactiosModel.dart';
+import '../../Settings/settingsProvider.dart';
 import '../TransferDetailes.dart';
 
 class OutgoingTransactionsItem extends StatelessWidget {
@@ -21,7 +22,7 @@ class OutgoingTransactionsItem extends StatelessWidget {
           child: Text(
             "No outcome transactions yet",
             style: Constant.stringStyle(
-                20.sp, FontWeight.w500, Colors.black, 0.0),
+                20.sp, FontWeight.w500, SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white, 0.0),
           ),
         ),
       )
@@ -36,7 +37,9 @@ class OutgoingTransactionsItem extends StatelessWidget {
                   receiverName: HomeLayoutCubit.get(context).outgoing[index].receiverName,
                   senderAccNo: HomeLayoutCubit.get(context).outgoing[index].senderAccNo,
                   receiverAccNo: HomeLayoutCubit.get(context).outgoing[index].receiverAccNo,
-                  id: HomeLayoutCubit.get(context).outgoing[index].id));
+                  id: HomeLayoutCubit.get(context).outgoing[index].id,
+                transState: HomeLayoutCubit.get(context).outgoing[index].transState
+              ));
         },
         child: Container(
           alignment: Alignment.topLeft,
@@ -108,7 +111,7 @@ class OutgoingTransactionsItem extends StatelessWidget {
                         opacity: 0.60,
                         child: Text('To',
                             style: TextStyle(
-                              color: Color(0xFF1E1E1E),
+                              color: const Color(0xFF1E1E1E),
                               fontSize: 10.sp,
                               fontFamily: 'San Francisco Display',
                               fontWeight: FontWeight.w500,
@@ -118,7 +121,7 @@ class OutgoingTransactionsItem extends StatelessWidget {
                     padding: REdgeInsets.only(left: 8.0, right: 8, top: 8),
                     child: Text(HomeLayoutCubit.get(context).outgoing[index].receiverName,
                         style: TextStyle(
-                          color: Color(0xFF1E1E1E),
+                          color: const Color(0xFF1E1E1E),
                           fontSize: 12.sp,
                           fontFamily: 'San Francisco Display',
                           fontWeight: FontWeight.w700,

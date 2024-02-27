@@ -6,6 +6,7 @@ import 'package:transfer_me/HomeLayout/Cubit/HomeLayOutStates.dart';
 import 'package:transfer_me/models/transactiosModel.dart';
 
 import '../../Shared/Constant/Constant.dart';
+import '../Settings/settingsProvider.dart';
 
 class TransferDetails extends StatelessWidget {
   static const String routeName='TransferDetails';
@@ -18,7 +19,7 @@ class TransferDetails extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          color: Colors.white,
+          color:SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black87,
           child: BlocProvider(create: (context) => HomeLayoutCubit(),
               lazy: false,
               child: BlocConsumer<HomeLayoutCubit,HomeLayoutStates>(
@@ -53,7 +54,7 @@ class TransferDetails extends StatelessWidget {
                                 style: Constant.stringStyle(
                                     20.sp,
                                     FontWeight.w600,
-                                    const Color(0xFF1E1E1E),
+                                    SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     0.0)),
                           ),
                            SizedBox(width: 50.w),
@@ -64,7 +65,7 @@ class TransferDetails extends StatelessWidget {
                       margin: REdgeInsets.all(10),
                       padding: REdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black,
+                        border: Border.all(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                         width: 1),
                         borderRadius: BorderRadius.circular(12.r)
                       ),
@@ -116,7 +117,7 @@ class TransferDetails extends StatelessWidget {
                           ),
                           SizedBox(height: 30.h,),
                           Divider(
-                            color: Colors.black,
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                             thickness: 2,
                             endIndent: 10.w,
                             indent: 10.w,
@@ -131,7 +132,7 @@ class TransferDetails extends StatelessWidget {
                                     fontSize: 23.sp
                                 ),),
                                 Text(args.senderName,style: TextStyle(
-                                    color: Colors.black,
+                                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 21.sp
                                 ),),
@@ -148,7 +149,7 @@ class TransferDetails extends StatelessWidget {
                                     fontSize: 23.sp
                                 ),),
                                 Text(args.receiverName,style: TextStyle(
-                                    color: Colors.black,
+                                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 21.sp
                                 ),),
@@ -164,8 +165,8 @@ class TransferDetails extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     fontSize: 23.sp
                                 ),),
-                                Text(" 10/1/2024",style: TextStyle(
-                                    color: Colors.black,
+                                Text(" 22/2/2024",style: TextStyle(
+                                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 21.sp
                                 ),),
@@ -179,12 +180,12 @@ class TransferDetails extends StatelessWidget {
                                 Text("Trans id : ",style: TextStyle(
                                     color: const Color(0xFF5164BF),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 23.sp
+                                    fontSize: 18.sp
                                 ),),
-                                Text(args.id,style: TextStyle(
-                                    color: Colors.black,
+                                Text("${args.id.substring(0,20)}....",style: TextStyle(
+                                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 21.sp
+                                    fontSize: 16.sp
                                 ),),
                               ],
                             ),
@@ -199,7 +200,7 @@ class TransferDetails extends StatelessWidget {
                                     fontSize: 23.sp
                                 ),),
                                 Text("Free",style: TextStyle(
-                                    color: Colors.black,
+                                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black87:Colors.white,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 21.sp
                                 ),)
@@ -210,12 +211,12 @@ class TransferDetails extends StatelessWidget {
                             padding: const EdgeInsets.all(17.0),
                             child: Row(
                               children: [
-                                Text("Trans States :",style: TextStyle(
+                                Text("Trans States : ",style: TextStyle(
                                     color: const Color(0xFF5164BF),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 23.sp
                                 ),),
-                                Text(" Success",style: TextStyle(
+                                Text(args.transState??"",style: TextStyle(
                                     color: Colors.green,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 23.sp

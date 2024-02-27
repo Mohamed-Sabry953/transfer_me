@@ -7,7 +7,7 @@ class TransactionModel {
   String id;
   int senderAccNo;
   int receiverAccNo;
-  String transState="waiting";
+  String transState;
 
   TransactionModel(
       {required this.receiveImg,
@@ -18,7 +18,7 @@ class TransactionModel {
       required this.senderAccNo,
       required this.receiverAccNo,
         required this.id,
-         transState});
+           required this.transState});
 
   TransactionModel.fromjson(Map<String, dynamic> json)
       : this(

@@ -5,6 +5,7 @@ import 'package:transfer_me/Taps/HomeTap/TransferDetailes.dart';
 import 'package:transfer_me/models/transactiosModel.dart';
 
 import '../../../Shared/Constant/Constant.dart';
+import '../../Settings/settingsProvider.dart';
 
 class IncomingTransItem extends StatelessWidget {
   IncomingTransItem(this.index, {super.key});
@@ -23,7 +24,7 @@ class IncomingTransItem extends StatelessWidget {
         child: Text(
           "No income transactions yet",
           style: Constant.stringStyle(
-              20.sp, FontWeight.w500, Colors.black, 0.0),
+              20.sp, FontWeight.w500, SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white, 0.0),
         ),
       ),
     ) :
@@ -37,7 +38,10 @@ class IncomingTransItem extends StatelessWidget {
                 receiverName: HomeLayoutCubit.get(context).inComing[index].receiverName,
                 senderAccNo: HomeLayoutCubit.get(context).inComing[index].senderAccNo,
                 receiverAccNo: HomeLayoutCubit.get(context).inComing[index].receiverAccNo,
-                id: HomeLayoutCubit.get(context).inComing[index].id));
+                id: HomeLayoutCubit.get(context).inComing[index].id,
+             transState: HomeLayoutCubit.get(context).inComing[index].transState
+            ),
+        );
       },
       child: Container(
         alignment: Alignment.topLeft,

@@ -21,13 +21,14 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
+      backgroundColor: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
       drawer: DrawerItem(),
       body: Container(
         margin: REdgeInsets.only(
           left: 10,
           top: 10
         ),
-        color: Colors.white,
+        color:SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
         child: Column(
           children: [
             Row(
@@ -76,7 +77,7 @@ class _SettingsState extends State<Settings> {
                 bottom: 30,
               ),
               decoration: BoxDecoration(
-                color: Colors.white38,
+                color: Colors.white,
                 border: Border.all(color: const Color(0xFF5164BF)),
                 borderRadius: BorderRadius.circular(12.r)
               ),
@@ -130,6 +131,9 @@ class _SettingsState extends State<Settings> {
                               value: SettingsProvider.get(context).selectedValue,
                               onChanged: (String? value) {
                                 SettingsProvider.get(context).changeLangMenuVal(value!);
+                                setState(() {
+
+                                });
                               },
                               buttonStyleData:  ButtonStyleData(
                                   padding: REdgeInsets.symmetric(horizontal: 16),
@@ -199,6 +203,8 @@ class _SettingsState extends State<Settings> {
                               onChanged: (String? value) {
                                 SettingsProvider.get(context).changeModeMenuVal(value!);
                                 SettingsProvider.get(context).changeTheme();
+                                setState(() {
+                                });
                               },
                               buttonStyleData:  ButtonStyleData(
                                   padding: REdgeInsets.symmetric(horizontal: 16),

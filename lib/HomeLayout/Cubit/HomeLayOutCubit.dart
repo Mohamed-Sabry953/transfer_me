@@ -42,6 +42,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   List<PaymentMethodModel> cards = [];
   List<TransactionModel>inComing=[];
   List<TransactionModel>outgoing=[];
+  bool onBoardingClick=false;
 
   void changeIndex(int index, BuildContext context) {
     Currentindex = index;
@@ -203,7 +204,9 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
             receiverName: doc['receiverName'],
             senderAccNo: doc['senderAccNo'],
             receiverAccNo: doc['receiverAccNo'],
-            id: doc['id']);
+            id: doc['id'],
+            transState:doc['transState'],
+        );
         if(userModel.accountNo==transactionModel.receiverAccNo){
           inComing.add(transactionModel);
         }
@@ -217,5 +220,14 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   changeIndexOnboarding(int index){
     onBoardingIndex=index;
     emit(ChangeOnboardingIndexSucState());
+  }
+  onBoardingButton(int index){
+    if(index==2){
+      onBoardingClick=true;
+    emit(ChangeOnboardingButtonSucState());
+    }
+    else{
+      onBoardingClick=false;
+    }
   }
 }

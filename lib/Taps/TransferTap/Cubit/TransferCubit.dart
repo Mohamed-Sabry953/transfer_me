@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -122,6 +121,7 @@ class TransferCubit extends Cubit<TransferStates> {
 
   addTransactionOperateToFirebase(
       String amountTransfer,String docId,BuildContext context,String img,String firstName,String lastName,int accNo) {
+    int count= Random().nextInt(10000);
     emit(TransferLoadingState());
     TransactionModel transactionModel = TransactionModel(
         receiveImg: img,
@@ -131,10 +131,12 @@ class TransferCubit extends Cubit<TransferStates> {
         receiverName: "$firstName $lastName",
         senderAccNo: userModel.accountNo,
         receiverAccNo: accNo,
-        id: Random().nextInt(400000000).toString());
+        id: "${FirebaseAuth.instance.currentUser!.uid}$count",
+    transState: "waiting",
+    );
     var collection = getTransactionCollection();
     var docRef =
-    collection.doc("${FirebaseAuth.instance.currentUser!.uid}${Random().nextInt(10000)}");
+    collection.doc("${FirebaseAuth.instance.currentUser!.uid}$count");
     docRef.set(transactionModel).then((value) {
       Future.delayed(const Duration(seconds: 3),() {
         emit(TransAddToFirebaseSucState());

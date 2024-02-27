@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:transfer_me/Taps/TransferTap/ConfirmBottomSheet/ConfirmPinBottomSheet.dart';
 
 import '../../../models/PaymentMethodModel.dart';
+import '../../Settings/settingsProvider.dart';
 class ConfirmSheet extends StatelessWidget {
   String firstName;
   String lastName;
@@ -21,7 +22,7 @@ class ConfirmSheet extends StatelessWidget {
       width: double.infinity,
       height: 350.h,
       decoration: BoxDecoration(
-          color: Colors.black,
+          color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.grey.shade300,
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(20.r), topLeft: Radius.circular(20.r))),
       child: Column(
@@ -34,16 +35,16 @@ class ConfirmSheet extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(
+                  icon:  Icon(
                     Icons.arrow_back_rounded,
-                    color: Colors.white,
+                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                     size: 20,
                   ),
                 ),
                 const Spacer(),
                 Text(
                   "Confirm transfer",
-                  style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                  style: TextStyle(fontSize: 16.sp, color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black),
                 ),
                 const Spacer(),
                 SizedBox(
@@ -60,7 +61,7 @@ class ConfirmSheet extends StatelessWidget {
             margin: REdgeInsets.all(12),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: Colors.grey, width: 2.5.w)),
+                border: Border.all(color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.grey:Colors.black, width: 2.5.w)),
             child: Column(
               children: [
                 Row(
@@ -68,14 +69,14 @@ class ConfirmSheet extends StatelessWidget {
                     Text(
                       "Recipient : ",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                         fontSize: 16.sp,
                       ),
                     ),
                     Text(
                       "$firstName $lastName ($accNo)",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                         fontSize: 14.sp,
                       ),
                     ),
@@ -89,14 +90,14 @@ class ConfirmSheet extends StatelessWidget {
                     Text(
                       "Amount : ",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                         fontSize: 17.sp,
                       ),
                     ),
                     Text(
                       "$amount\$",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                         fontSize: 16.sp,
                       ),
                     ),
@@ -117,7 +118,7 @@ class ConfirmSheet extends StatelessWidget {
                 Text(
                   "please make sure you entered the right mobile number.\nIn case of wrong transfer we are unable to reverse the\ntransaction.",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black,
                     fontSize: (12.9).sp,
                   ),
                 )
@@ -128,7 +129,7 @@ class ConfirmSheet extends StatelessWidget {
             height: 12.h,
           ),
           Divider(
-            color: Colors.grey,
+            color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.grey:Colors.black,
             thickness: 1.sp,
             indent: 15.w,
             endIndent: 15.w,

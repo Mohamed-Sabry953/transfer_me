@@ -20,3 +20,4 @@ class GetOutgoingTransactionsSucState extends HomeLayoutStates{}
 class GetTransactionsLoadingState extends HomeLayoutStates{}
 class GetTransactionsSucState extends HomeLayoutStates{}
 class ChangeOnboardingIndexSucState extends HomeLayoutStates{}
+class ChangeOnboardingButtonSucState extends HomeLayoutStates{}

@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
+import 'package:transfer_me/Taps/Settings/settings.dart';
 import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
 import '../../Taps/ProfileTap/Cubit/ProfileCubit.dart';
 import '../../Taps/ProfileTap/Cubit/ProfileStates.dart';
+import '../../Taps/Settings/settingsProvider.dart';
 import '../Cubit/HomeLayOutCubit.dart';
 import '../Cubit/HomeLayOutStates.dart';
 
@@ -20,7 +22,7 @@ class DrawerItem extends StatelessWidget {
         builder: (context, state) {
           return Container(
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.white:Colors.black87,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(25.r),
                     bottomRight: Radius.circular(25.r))),
@@ -52,7 +54,7 @@ class DrawerItem extends StatelessWidget {
                   Text(
                     "${HomeLayoutCubit.get(context).userModel.firstname} ${HomeLayoutCubit.get(context).userModel.lastname}",
                     style: TextStyle(
-                      color: Color(0xFF1E1E1E),
+                      color: SettingsProvider.get(context).themeMode==ThemeMode.light? Colors.black:Colors.white,
                       fontSize: 20.sp,
                       fontFamily: 'San Francisco Display',
                       fontWeight: FontWeight.w600,
@@ -63,7 +65,7 @@ class DrawerItem extends StatelessWidget {
                     child: Text(
                       HomeLayoutCubit.get(context).userModel.Email??"",
                       style: TextStyle(
-                        color: Color(0xFF827F7F),
+                        color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF827F7F):Colors.white70,
                         fontSize: 15.sp,
                         fontFamily: 'San Francisco Display',
                         fontWeight: FontWeight.w400,
@@ -81,7 +83,7 @@ class DrawerItem extends StatelessWidget {
                       children: [
                          Icon(
                           Icons.account_balance_wallet_outlined,
-                          color: Color(0xff8EDFEB),
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xff8EDFEB):Colors.white,
                           size: 25,
                         ),
                         SizedBox(
@@ -90,7 +92,7 @@ class DrawerItem extends StatelessWidget {
                         Text(
                           'My Wallet',
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF1E1E1E):const Color(0xFF5164BF),
                             fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
@@ -108,9 +110,9 @@ class DrawerItem extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        const Icon(
+                         Icon(
                           Icons.person_pin,
-                          color: Color(0xff8EDFEB),
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xff8EDFEB):Colors.white,
                           size: 25,
                         ),
                         SizedBox(
@@ -119,7 +121,7 @@ class DrawerItem extends StatelessWidget {
                         Text(
                           'Profile',
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF1E1E1E):const Color(0xFF5164BF),
                             fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
@@ -136,9 +138,9 @@ class DrawerItem extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        const Icon(
+                         Icon(
                           Icons.insert_chart_outlined_rounded,
-                          color: Color(0xff8EDFEB),
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xff8EDFEB):Colors.white,
                           size: 25,
                         ),
                         SizedBox(
@@ -147,7 +149,7 @@ class DrawerItem extends StatelessWidget {
                         Text(
                           'Statistics ',
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF1E1E1E):const Color(0xFF5164BF),
                             fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
@@ -174,9 +176,9 @@ class DrawerItem extends StatelessWidget {
                     },
                     child: Row(
                       children: [
-                        const Icon(
+                         Icon(
                           Icons.compare_arrows,
-                          color: Color(0xff8EDFEB),
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xff8EDFEB):Colors.white,
                           size: 25,
                         ),
                         SizedBox(
@@ -185,7 +187,7 @@ class DrawerItem extends StatelessWidget {
                         Text(
                           'Transfer',
                           style: TextStyle(
-                            color: const Color(0xFF1E1E1E),
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF1E1E1E):const Color(0xFF5164BF),
                             fontSize: 18.sp,
                             fontFamily: 'San Francisco Display',
                             fontWeight: FontWeight.w500,
@@ -197,26 +199,31 @@ class DrawerItem extends StatelessWidget {
                   SizedBox(
                     height: 30.h,
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.settings,
-                        color: Color(0xff8EDFEB),
-                        size: 25,
-                      ),
-                      SizedBox(
-                        width: 17.w,
-                      ),
-                      Text(
-                        'Settings',
-                        style: TextStyle(
-                          color: const Color(0xFF1E1E1E),
-                          fontSize: 18.sp,
-                          fontFamily: 'San Francisco Display',
-                          fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, Settings.routeName);
+                    },
+                    child: Row(
+                      children: [
+                         Icon(
+                          Icons.settings,
+                          color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xff8EDFEB):Colors.white,
+                          size: 25,
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          width: 17.w,
+                        ),
+                        Text(
+                          'Settings',
+                          style: TextStyle(
+                            color: SettingsProvider.get(context).themeMode==ThemeMode.light? const Color(0xFF1E1E1E):const Color(0xFF5164BF),
+                            fontSize: 18.sp,
+                            fontFamily: 'San Francisco Display',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                   BlocBuilder<ProfileCubit,ProfileStates>(builder: (context, state) {

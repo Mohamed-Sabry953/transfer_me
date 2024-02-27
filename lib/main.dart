@@ -86,6 +86,7 @@ class MyApp extends StatelessWidget {
               ? loginScreen.routeName
               :
             PinLock.routeName,
+            themeMode: SettingsProvider.get(context).themeMode,
         );
       },);
   }
