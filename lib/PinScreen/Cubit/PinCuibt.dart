@@ -7,8 +7,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/Login/loginScreen.dart';
 import 'package:transfer_me/PinScreen/Cubit/PinStates.dart';
+import 'package:transfer_me/models/UserModel.dart';
 import 'package:transfer_me/signUp/SuccsesSignupScreen.dart';
-import '../../models/UserModel.dart';
 
 class PinCubit extends Cubit<PinStates> {
   PinCubit() : super(PininitState());

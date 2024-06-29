@@ -297,16 +297,19 @@ class signup extends StatelessWidget {
             listener: (context, state) {
               if (state is SignupVaildatorEmailSuccsesState) {
               } else if (state is SignupVaildatorEmailErrorState) {
-              } else if (state is SignupLoadingState) {
+              }
+              else if (state is SignupLoadingState) {
                 showDialog(
                   context: context,
                   builder: (context) {
                     return const Center(child: CircularProgressIndicator());
                   },
                 );
-              } else if (state is SignupVaildatorRePasswordLoadingState) {
+              }
+              else if (state is SignupVaildatorRePasswordLoadingState) {
                 SignupCubit.get(context).pass = Pass.text;
-              } else if (state is SignupErrorState) {
+              }
+              else if (state is SignupErrorState) {
                 Navigator.pop(context);
                 showDialog(
                   context: context,

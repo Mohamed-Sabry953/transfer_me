@@ -58,18 +58,6 @@ class CompleteMessage extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: REdgeInsets.only(top: padding,left: 143),
-          child: Container(
-            width: 80.w,
-            height: 80.h,
-            decoration: const BoxDecoration(
-                color: Colors.green,
-                shape: BoxShape.circle
-            ),
-            child: const Center(child: Icon(Icons.task_alt,size: 60,color: Colors.white,)),
-          ),
-        ),
       ],
     );
   }

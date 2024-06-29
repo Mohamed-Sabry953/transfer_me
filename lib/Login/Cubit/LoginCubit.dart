@@ -7,9 +7,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:transfer_me/HomeLayout/HomeLayout.dart';
 import 'package:transfer_me/HomeLayout/onBoardingScreens/onBoarding.dart';
 import 'package:transfer_me/Login/Cubit/LoginStates.dart';
+import 'package:transfer_me/models/UserModel.dart';
 import 'package:transfer_me/signUp/signup.dart';
 
-import '../../models/UserModel.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(initLoginState());
@@ -21,8 +21,7 @@ class LoginCubit extends Cubit<LoginStates> {
   FirebaseMessaging fcm = FirebaseMessaging.instance;
   String deviceToken = '';
    String? accActivity;
-  login(String pinContent, String emailAddress, String password,
-      BuildContext context) async {
+  login(String pinContent, String emailAddress, String password, BuildContext context) async {
     emit(LoadingLoginState());
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: emailAddress, password: password)

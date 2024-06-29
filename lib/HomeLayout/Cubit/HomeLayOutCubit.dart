@@ -9,9 +9,8 @@ import 'package:transfer_me/Taps/MyWalletTap/MyWallet.dart';
 import 'package:transfer_me/Taps/ProfileTap/ProfileTap.dart';
 import 'package:transfer_me/Taps/TransferTap/TransferTap.dart';
 import 'package:transfer_me/models/PaymentMethodModel.dart';
+import 'package:transfer_me/models/UserModel.dart';
 import 'package:transfer_me/models/transactiosModel.dart';
-
-import '../../models/UserModel.dart';
 
 class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   HomeLayoutCubit() : super(HomeLayoutinit());
@@ -43,6 +42,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
   List<TransactionModel>inComing=[];
   List<TransactionModel>outgoing=[];
   bool onBoardingClick=false;
+  double x=0;
 
   void changeIndex(int index, BuildContext context) {
     Currentindex = index;
@@ -191,10 +191,7 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
 
   getTransactionsData() {
     emit(GetTransactionsLoadingState());
-    FirebaseFirestore.instance
-        .collection("Transaction")
-        .get()
-        .then((QuerySnapshot querySnapshot) {
+    FirebaseFirestore.instance.collection("Transaction").get().then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         TransactionModel transactionModel = TransactionModel(
             receiveImg: doc['receiveImg'],
@@ -229,5 +226,9 @@ class HomeLayoutCubit extends Cubit<HomeLayoutStates> {
     else{
       onBoardingClick=false;
     }
+  }
+  animation(double x_axis){
+    x=x_axis;
+    emit(AnimationState());
   }
 }

@@ -37,7 +37,7 @@ class OnBoardingScreen extends StatelessWidget {
                     return Column(
                       children: [
                         onBoardingItems[index],
-                        SizedBox(height: 80.h,),
+                        SizedBox(height: 50.h,),
                       ],
                     );
                   },
@@ -51,7 +51,7 @@ class OnBoardingScreen extends StatelessWidget {
                         HomeLayoutCubit.get(context).onBoardingButton(index);
                     },
                     viewportFraction: 1,
-                    height: 495.h,
+                    height: 500.h,
                   ),
                 ),
                 SizedBox(

@@ -4,9 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transfer_me/PinScreen/SetPinScreen.dart';
+import 'package:transfer_me/models/UserModel.dart';
 import 'package:transfer_me/signUp/Cubit/SignupStates.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../../models/UserModel.dart';
 
 class SignupCubit extends Cubit<SignupStates> {
 
